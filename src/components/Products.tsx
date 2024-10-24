@@ -12,27 +12,27 @@ interface Product {
 const productData: Product[] = [
   {
     id: 1,
-    imageSrc: '/images/trendy-baby-1.webp',
+    imageSrc: '/images/trending-baby-1.webp',
     name: 'Automatic Bottle Maker',
   },
   {
     id: 2,
-    imageSrc: '/images/trendy-baby-2.webp',
+    imageSrc: '/images/trending-baby-2.webp',
     name: 'Sterilizers',
   },
   {
     id: 3,
-    imageSrc: '/images/trendy-baby-3.webp',
+    imageSrc: '/images/trending-baby-3.webp',
     name: 'Bottle Warmers',
   },
   {
     id: 4,
-    imageSrc: '/images/trendy-baby-4.webp',
+    imageSrc: '/images/trending-baby-4.webp',
     name: 'Food Maker Deluxe',
   },
   {
     id: 5,
-    imageSrc: '/images/trendy-baby-5.webp',
+    imageSrc: '/images/trending-baby-5.webp',
     name: 'Spare Parts',
   },
 ];
@@ -40,7 +40,7 @@ const productData: Product[] = [
 export default function Products() {
   return (
     <div>
-      <p className="text-center text-[#65858f] text-3xl sm:text-3xl md:text-4xl font-semibold lg:text-4xl">
+      <p className="text-center text-[#65858f] text-3xl sm:text-3xl md:text-4xl font-semibold lg:text-4xl py-10">
         Make feeding your baby easier with Babybrezza
       </p>
       <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 my-[40px] gap-x-2 px-[20px]">

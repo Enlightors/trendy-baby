@@ -7,7 +7,7 @@ export default function Header() {
       <div className='h-[700px] relative overflow-hidden'>
         <video
           className='absolute top-0 left-0 w-full h-full object-cover'
-          src=''
+          src='/videos/Trending-bay-1.mp4'
           autoPlay
           loop
           muted
