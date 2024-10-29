@@ -3,7 +3,7 @@ import { FaInstagram, FaFacebookF, FaYoutube, FaTiktok } from "react-icons/fa";
 
 export default function Footer({ locale }: any) {
   return (
-    <div className="flex flex-col bg-[#5ac5f1] h-[370px] text-white">
+    <div className="flex flex-col bg-[#00B1D5] h-[370px] text-white">
       <div className="grid grid-cols-3  px-10  pt-10 text-sm">
         <div className="flex flex-col gap-y-2 ">
           <h1 className="font-medium text-4xl "> Contact</h1>

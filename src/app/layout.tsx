@@ -16,11 +16,8 @@ type Props = {
 
 export default function RootLayout({ children }: Props) {
   return (
-    <html lang="en"> {/* Add <html> tag */}
-      <body> {/* Add <body> tag */}
-        {children}
-      </body>
+    <html lang="en">
+      <body>{children}</body>
     </html>
   );
 }
-

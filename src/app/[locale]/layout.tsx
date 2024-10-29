@@ -25,7 +25,7 @@ export default async function RootLayout({
     // About: t("About"),
     // Projects: t("Projects"),
     // Services: t("Services"),
-    // Contact: t("Contact"),
+     Contact: t("Contact"),
   };
 
   return (

@@ -33,14 +33,17 @@ export default function NavBar({ locale, T }: { locale: string; T: any }) {
 
   return (
     <>
-      <div className="bg-[#1F3449] h-[80px] border-transparent border-b-[#fff] border-[2px] fixed top-0 left-0 right-0 flex items-center justify-between px-6 lg:px-[218px] z-50">
-        <div>
+
+    <div className=" fixed top-0 left-0 w-full z-50 flex flex-col bg-[#00B1D5] h-[60px]  items-center justify-center "> </div>
+   <div className="bg-white h-[120px] pt-[100px]  border-transparent border-b-[#fff] border-[2px]  flex items-center justify-between     ">
+  
+      <div>
           <Link href={`/${locale}`} key="home">
             <Image
               src={
-                locale === "ar" ? "/images/logo.webp" : "/images/logo_en.webp"
+                locale === "en" ? "/images/Trending-baby-logo.png" : "/images/Trending-baby-logo.png"
               }
-              className="w-[75px] h-[75px]"
+              className=""
               loading="lazy"
               width={266}
               height={266}
@@ -54,14 +57,14 @@ export default function NavBar({ locale, T }: { locale: string; T: any }) {
               className={`px-[20px] ${
                 path === `/${locale}${page.path}` ||
                 (path === `/${locale}` && page.path === "/")
-                  ? "border-transparent border-b-[#FFC629] border-[2px]"
+                  ? "border-transparent  border-[2px]"
                   : ""
               } cursor-pointer  justify-center items-center flex flex-col h-[80px]`}
               href={`/${locale}${page.path}`}
               key={page.name}
             >
               <p
-                className={`text-white
+                className={`text-black
               ${locale === "en" && "first-letter:uppercase"}
               `}
               >
@@ -80,11 +83,13 @@ export default function NavBar({ locale, T }: { locale: string; T: any }) {
         </div>
         <div className="md:hidden cursor-pointer">
           <IoMenu
-            className="text-white text-4xl"
+            className="text-black text-4xl"
             onClick={() => setMobileMenu(!MobileMenu)}
           />
         </div>
-      </div>
+        </div>
+    
+   
       <div className="md:hidden">
         <div
           className={`
@@ -115,7 +120,7 @@ export default function NavBar({ locale, T }: { locale: string; T: any }) {
 const Pages = [
   {
     name: "Home",
-    path: "/home",
+    path: "/",
   },
   //   {
   //     name: "About",
@@ -129,10 +134,10 @@ const Pages = [
   //     name: "Projects",
   //     path: "/projects",
   //   },
-  //   {
-  //     name: "Contact",
-  //     path: "/contact",
-  //   },
+    {
+      name: "Contact",
+      path: "/contact",
+    },
 ];
 
 const SelectBox = ({ options, value, onChange, T }: any) => {
