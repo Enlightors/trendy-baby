@@ -34,10 +34,10 @@ export default function NavBar({ locale, T }: { locale: string; T: any }) {
   return (
     <>
 
-    <div className=" fixed top-0 left-0 w-full z-50 flex flex-col bg-[#00B1D5] h-[60px]  items-center justify-center "> </div>
-   <div className="bg-white h-[120px] pt-[100px]  border-transparent border-b-[#fff] border-[2px]  flex items-center justify-between     ">
+    <div className=" fixed top-0  w-full z-50 flex flex-col bg-[#00B1D5] h-[60px]  items-center justify-center text-white   ">    Make feeding your baby easier with TrendingBaby</div>
+   <div className="bg-white h-[120px] pt-[100px]  border-transparent border-b-[#fff] border-[2px]  flex items-center justify-between  px-20  ">
   
-      <div>
+      <div className="">
           <Link href={`/${locale}`} key="home">
             <Image
               src={
@@ -73,14 +73,14 @@ export default function NavBar({ locale, T }: { locale: string; T: any }) {
             </Link>
           ))}
         </div>
-        <div>
+        {/* <div>
           <SelectBox
             options={languages}
             value={locale}
             onChange={switchLang}
             T={T}
           />
-        </div>
+        </div> */}
         <div className="md:hidden cursor-pointer">
           <IoMenu
             className="text-black text-4xl"
@@ -122,18 +122,18 @@ const Pages = [
     name: "Home",
     path: "/",
   },
-  //   {
-  //     name: "About",
-  //     path: "/about",
-  //   },
+    {
+      name: "About",
+      path: "/about",
+    },
   //   {
   //     name: "Services",
   //     path: "/services",
   //   },
-  //   {
-  //     name: "Projects",
-  //     path: "/projects",
-  //   },
+    {
+      name: "Products",
+      path: "/product",
+    },
     {
       name: "Contact",
       path: "/contact",

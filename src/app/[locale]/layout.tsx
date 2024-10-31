@@ -22,8 +22,8 @@ export default async function RootLayout({
   const t = await getTranslations("Trans");
   const T = {
     Home: t("Home"),
-    // About: t("About"),
-    // Projects: t("Projects"),
+    About: t("About"),
+     Products: t("Products"),
     // Services: t("Services"),
      Contact: t("Contact"),
   };
