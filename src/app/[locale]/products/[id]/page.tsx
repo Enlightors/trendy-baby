@@ -252,6 +252,84 @@ const productData: Product[] = [
       },
     ],
   },
+  {
+    id: 4,
+    imageSrc: "/images/trending-baby-4.png",
+    name: "",
+    description: "",
+    // header: [
+    //   {
+    //     media: {
+    //       type: "video",
+    //       url: "/videos/Trending-baby-2.mp4",
+    //     },
+    //     title: " Mona Monitor",
+
+    //     description: "  ",
+    //   },
+    // ],
+    // headericon: [
+    //   {
+    //     bg: "#FF8189",
+    //     icon: "/images/mona-1.png",
+    //     description: "Wi-Fi Connection",
+    //   },
+    //   {
+    //     bg: "",
+    //     icon: "/images/mona-2.png",
+    //     description: "Lullabies",
+    //   },
+    //   {
+    //     bg: "",
+    //     icon: "/images/mona-3.png",
+    //     description: "Infraded Night vision",
+    //   },
+    //   {
+    //     bg: "",
+    //     icon: "/images/mona-4.png",
+    //     description: "1080 HD 5.0 Display",
+    //   },
+    // ],
+    // Features: [
+    //   {
+    //     title: "Secure & Private Connection",
+    //     description: "",
+    //     icon: "/images/mona-icon-1.png",
+    //     backgroundColor: "#3F738D",
+    //   },
+    //   {
+    //     title: "Two Way Connection",
+    //     description: "",
+    //     icon: "/images/mona-icon-2.png",
+    //     backgroundColor: "#FF8189",
+    //   },
+    //   {
+    //     title: "Superion 4x Zoom",
+    //     description: "",
+    //     icon: "/images/mona-icon-3.png",
+    //     backgroundColor: "#F5CE3E",
+    //   },
+    //   {
+    //     title: "Vox Function",
+    //     description: "",
+    //     icon: "/images/mona-icon-4.png",
+    //     backgroundColor: "#3F738D",
+    //   },
+    //   {
+    //     title: "Rechargable Battery",
+    //     description: "",
+    //     icon: "/images/mona-icon-5.png",
+    //     backgroundColor: "#FF8189",
+    //   },
+    //   {
+    //     title: "Up to 960tf(300 meters)",
+    //     description: "",
+    //     icon: "/images/mona-icon-6.png",
+    //     backgroundColor: "#F5CE3E",
+    //   },
+    // ],
+  },
+  
 ];
 
 export default function Page({ params: { id } }: { params: { id: string } }) {
@@ -263,11 +341,11 @@ export default function Page({ params: { id } }: { params: { id: string } }) {
   }
 
   return (
-    <div className="min-h-screen pt-12 h-auto  mx-auto">
+    <div className="min-h-screen pt-12 h-auto  mx-auto  ">
       {product?.header?.map((header: any, index: any) => (
-        <div className="flex flex-col  lg:flex-row gap-x-4 ">
+        <div className="flex flex-col  lg:flex-row gap-x-4 mx-auto justify-center  pr-0">
           <div className=" w-full lg:max-w-[600px] lg:max-h-[400px]">
-            {header?.media?.type === "video" ? (
+            {header?.media?.type === "video" ? ( 
               <video
                 className=""
                 src={header?.media?.url}
@@ -290,7 +368,7 @@ export default function Page({ params: { id } }: { params: { id: string } }) {
               </p> */}
 
             {product?.headericon?.map((headericon: any, index: any) => (
-              <div className="flex flex-col gap-y-2 ">
+              <div className="grid grid-cols-2  gap-y-2 ">
                 <div className="flex flex-row items-center gap-x-2 ">
                   <div className="flex  h-[50px] w-[50px] bg-[#FF8189] rounded-full justify-center items-center">
                     <img
@@ -308,7 +386,7 @@ export default function Page({ params: { id } }: { params: { id: string } }) {
         </div>
       ))}
 
-      <div className="px-20 py-[40px] flex  flex-col md:flex-row items-center justify-around">
+      <div className="px-20 py-[40px] flex  flex-col md:flex-row items-center justify-center gap-x-20">
         <div className=" max-h-[300px]">
           <img
             className="object-contain h-[200px]"
