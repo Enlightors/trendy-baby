@@ -31,17 +31,11 @@ const productData: Product[] = [
     imageSrc: "/images/trending-baby-4.png",
     name: "Baby Crib",
   },
-  {
-    id: 5,
-    imageSrc: "/images/trending-baby-5.png",
-    name: "Baby Crib",
-  },
-
-  
-  
-  
-
-
+  // {
+  //   id: 5,
+  //   imageSrc: "/images/trending-baby-5.png",
+  //   name: "Baby Crib",
+  // },
 ];
 
 interface ProductscomProps {
@@ -49,14 +43,18 @@ interface ProductscomProps {
 }
 
 export default function Productscom({ filter = [] }: ProductscomProps) {
-  const filteredProducts = productData.filter((product) => !filter.includes(product.id));
+  const filteredProducts = productData.filter(
+    (product) => !filter.includes(product.id)
+  );
 
   return (
     <div>
-   
       <div className="flex flex-col md:flex-row lg:flex-row my-[30px] gap-x-10 items-center justify-center">
         {filteredProducts.map((product) => (
-          <div key={product.id} className="flex flex-col items-center  justify-center">
+          <div
+            key={product.id}
+            className="flex flex-col items-center  justify-center"
+          >
             <Link href={`/products/${product.id}`} className="text-center">
               <div className="max-h-[200px] h-[200px] flex items-center justify-center ">
                 <img
@@ -66,13 +64,20 @@ export default function Productscom({ filter = [] }: ProductscomProps) {
                 />
               </div>
               <div className="max-w-[200px]">
-              <p className="text-black text-xl font-semibold cursor-pointer hover:text-[#5ac5f1]  break-words text-center">
-                {product.name}
-              </p>
+                <p className="text-black text-xl font-semibold cursor-pointer hover:text-[#5ac5f1]  break-words text-center">
+                  {product.name}
+                </p>
               </div>
             </Link>
           </div>
         ))}
+        <div className="">
+          <Link href={`/products`}>
+            <p className="flex flex-row items-center justify-center ">
+              More &gt;{" "}
+            </p>
+          </Link>
+        </div>
       </div>
     </div>
   );

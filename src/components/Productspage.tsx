@@ -30,11 +30,11 @@ const productData: Products[] = [
     imageSrc: "/images/trending-baby-4.png",
     name: "Baby Crib",
   },
-  {
-    id: 5,
-    imageSrc: "/images/trending-baby-5.png",
-    name: "Baby Crib",
-  },
+  // {
+  //   id: 5,
+  //   imageSrc: "/images/trending-baby-5.png",
+  //   name: "Baby Crib",
+  // },
   {
     id: 6,
     imageSrc: "/images/trending-baby-6.png",

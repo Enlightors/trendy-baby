@@ -20,13 +20,15 @@ const productData: Product[] = [
     description: "",
     header: [
       {
-        img: "/images/trending-baby-14.png",
+        media: {
+          type: "video",
+          url: "/videos/trending-baby-1.mp4",
+        },
+        img: "",
         title: "Smart Formula Milk Maker O5",
-
-        description:
-         ` Quickly prepare a safe, warm bottle with one touch.  Equipped with safety sensors, adjustable settings, and instant heating, it ensures a fresh, BPA-free bottle every time.
+        description: ` Quickly prepare a safe, warm bottle with one touch.  Equipped with safety sensors, adjustable settings, and instant heating, it ensures a fresh, BPA-free bottle every time.
             Self-cleaning, easy-to-clean design fits all
-            bottle sizes and formula types.` ,
+            bottle sizes and formula types.`,
       },
     ],
     headericon: [
@@ -103,9 +105,11 @@ const productData: Product[] = [
     description: "",
     header: [
       {
-        img: "/images/trending-baby-12.png",
+        media: {
+          type: "video",
+          url: "/videos/Trending-baby-2.mp4",
+        },
         title: " Wavy Monitor",
-
         description: "  ",
       },
     ],
@@ -178,7 +182,10 @@ const productData: Product[] = [
     description: "",
     header: [
       {
-        img: "/images/trending-baby-13.png",
+        media: {
+          type: "video",
+          url: "/videos/Trending-baby-2.mp4",
+        },
         title: " Mona Monitor",
 
         description: "  ",
@@ -260,7 +267,19 @@ export default function Page({ params: { id } }: { params: { id: string } }) {
       {product?.header?.map((header: any, index: any) => (
         <div className="flex flex-col  lg:flex-row gap-x-4 ">
           <div className=" w-full lg:max-w-[600px] lg:max-h-[400px]">
-            <img src={header.img} alt="Product" />
+            {header?.media?.type === "video" ? (
+              <video
+                className=""
+                src={header?.media?.url}
+                autoPlay
+                loop
+                muted
+                preload="auto"
+                playsInline
+              />
+            ) : (
+              <img src={header?.media?.url} alt="Product" />
+            )}
           </div>
           <div className="flex flex-col px-8 gap-y-4 ">
             <div className="max-w-[60%]">
@@ -269,7 +288,6 @@ export default function Page({ params: { id } }: { params: { id: string } }) {
             {/* <p className="">
               {header.description}
               </p> */}
-              
 
             {product?.headericon?.map((headericon: any, index: any) => (
               <div className="flex flex-col gap-y-2 ">
@@ -290,12 +308,10 @@ export default function Page({ params: { id } }: { params: { id: string } }) {
         </div>
       ))}
 
-
       <div className="px-20 py-[40px] flex  flex-col md:flex-row items-center justify-around">
         <div className=" max-h-[300px]">
           <img
             className="object-contain h-[200px]"
-         
             src={product.imageSrc}
             alt={product.name}
           />
@@ -320,7 +336,9 @@ export default function Page({ params: { id } }: { params: { id: string } }) {
           ))}
         </div>
       </div>
-      <p className="text-[#2D617B] font-bold text-4xl text-center">More Products</p>
+      <p className="text-[#2D617B] font-bold text-4xl text-center">
+        More Products
+      </p>
       <Productscom filter={[productId]} />
     </div>
   );
