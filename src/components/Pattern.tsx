@@ -8,4 +8,3 @@ export default function Pattern() {
   )
 }
 
- Pattern

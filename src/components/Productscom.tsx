@@ -26,41 +26,50 @@ const productData: Product[] = [
     imageSrc: "/images/trending-baby-3.png",
     name: "Mono Full HD Video Baby Monitor",
   },
-  // {
-  //   id: 4,
-  //   imageSrc: "/images/trending-baby-4.webp",
-  //   name: "Food Maker Deluxe",
-  // },
-  // {
-  //   id: 5,
-  //   imageSrc: "/images/trending-baby-5.webp",
-  //   name: "Spare Parts",
-  // },
+  {
+    id: 4,
+    imageSrc: "/images/trending-baby-4.png",
+    name: "Baby Crib",
+  },
+  {
+    id: 5,
+    imageSrc: "/images/trending-baby-5.png",
+    name: "Baby Crib",
+  },
+
+  
+  
+  
+
+
 ];
 
-export default function Productscom() {
+interface ProductscomProps {
+  filter?: number[];
+}
+
+export default function Productscom({ filter = [] }: ProductscomProps) {
+  const filteredProducts = productData.filter((product) => !filter.includes(product.id));
+
   return (
     <div>
-      <p className="text-center text-[#65858f] text-3xl sm:text-3xl md:text-4xl font-semibold lg:text-4xl py-10">
-        Make feeding your baby easier with TrendingBaby
-      </p>
-      <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 my-[40px] gap-x-2 px-[30px]">
-        {productData.map((product) => (
-          <div
-            key={product.id}
-            className="flex flex-col items-center justify-center"
-          >
-          
-            <Link className="" href={`/products/${product.id}`}>
-            <img
-              className="w-[400px] h-[400px] object-contain"
-           
-              src={product.imageSrc}
-              alt={product.name}
-            />
-              <p className="text-black text-xl font-semibold text-center cursor-pointer  hover:text-[#5ac5f1]">
+   
+      <div className="flex flex-col md:flex-row lg:flex-row my-[30px] gap-x-10 items-center justify-center">
+        {filteredProducts.map((product) => (
+          <div key={product.id} className="flex flex-col items-center  justify-center">
+            <Link href={`/products/${product.id}`} className="text-center">
+              <div className="max-h-[200px] h-[200px] flex items-center justify-center ">
+                <img
+                  className="h-[150px]"
+                  src={product.imageSrc}
+                  alt={product.name}
+                />
+              </div>
+              <div className="max-w-[200px]">
+              <p className="text-black text-xl font-semibold cursor-pointer hover:text-[#5ac5f1]  break-words text-center">
                 {product.name}
               </p>
+              </div>
             </Link>
           </div>
         ))}

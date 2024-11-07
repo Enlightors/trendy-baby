@@ -4,10 +4,10 @@ import React from 'react';
 export default function Header() {
   return (
     <div>
-      <div className='h-[700px] relative overflow-hidden '>
+      <div className='h-[300px] md:h-[700px] relative overflow-hidden '>
         <video
-          className='absolute top-0 left-0 w-full h-full object-cover pt-12'
-          src='/videos/Trending-bay-1.mp4'
+          className='absolute md:top-0 md:left- md:right  w-full h-[40hv] md:w-full md:h-[110vh] object-cover  '
+          src='/videos/trending-baby-1.mp4'
           autoPlay
           loop
           muted
@@ -18,4 +18,4 @@ export default function Header() {
     </div>
   );
 }
- Header;
+
