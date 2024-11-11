@@ -17,12 +17,14 @@ const productData: Product[] = [
     id: 1,
     imageSrc: "/images/trending-baby-1.png",
     name: "Smart Formula Milk Maker",
-    description: "",
+    description: `Safety Design & Fast Done – Formula Milk Maker
+
+Our advanced Formula Milk Maker combines cutting-edge technology and safety to create the perfect bottle for your baby in seconds. Equipped with 4 safety sensors, it ensures the utmost protection during formula preparation. Say goodbye to waiting for your bottle—just press the "START" button and receive a warm formula bottle instantly, saving you time compared to traditional machines.`,
     header: [
       {
         media: {
-          type: "video",
-          url: "/videos/trending-baby-1.mp4",
+          type: "image",
+          url: "/images/trending-baby-12.png",
         },
         img: "",
         title: "Smart Formula Milk Maker O5",
@@ -53,50 +55,7 @@ const productData: Product[] = [
         description: "Customized Design",
       },
     ],
-    Features: [
-      {
-        title: "Instant-Heating",
-        description:
-          "With Thermoblock heating technology, no pre-heating time needed, free from re-boiling water.",
-        icon: "/images/trending-baby-icon-1.png",
-        backgroundColor: "#3F738D",
-      },
-      {
-        title: "Materials",
-        description:
-          "The powder container, funnel and water tank are made of food-grade materials, FDA approved and BPA free.",
-        icon: "/images/trending-baby-icon-2.png",
-        backgroundColor: "#FF8189",
-      },
-      {
-        title: "Measurement",
-        description:
-          "Water and formula powder are precisely measured, dispensed and perfectly mixed according to identified formula information.",
-        icon: "/images/trending-baby-icon-3.png",
-        backgroundColor: "#F5CE3E",
-      },
-      {
-        title: "Safety Protection",
-        description:
-          "Works with 18 automatic sensors, providing instant protection and preventing faulty operation.",
-        icon: "/images/trending-baby-icon-4.png",
-        backgroundColor: "#3F738D",
-      },
-      {
-        title: "Airtightness",
-        description:
-          "With the hermetically sealed storage, keeps formula powder from humid or unhygienic environment.",
-        icon: "/images/trending-baby-icon-5.png",
-        backgroundColor: "#FF8189",
-      },
-      {
-        title: "Night Light",
-        description:
-          "LED soft light allows safe&handy bottle preparation at night even without other lights on.",
-        icon: "/images/trending-baby-icon-6.png",
-        backgroundColor: "#F5CE3E",
-      },
-    ],
+   
   },
   {
     id: 2,
@@ -136,44 +95,7 @@ const productData: Product[] = [
       },
     ],
 
-    Features: [
-      {
-        title: "Rechargable Battery",
-        description: "",
-        icon: "/images/wavy-icon-1.png",
-        backgroundColor: "#3F738D",
-      },
-      {
-        title: "Lullaby Playing",
-        description: "",
-        icon: "/images/wavy-icon-2.png",
-        backgroundColor: "#FF8189",
-      },
-      {
-        title: "Timer Setting",
-        description: "",
-        icon: "/images/wavy-icon-3.png",
-        backgroundColor: "#F5CE3E",
-      },
-      {
-        title: "Voice Activation Mode",
-        description: "",
-        icon: "/images/wavy-icon-4.png",
-        backgroundColor: "#3F738D",
-      },
-      {
-        title: "5.0 Inch LCD Screen",
-        description: "",
-        icon: "/images/wavy-icon-5.png",
-        backgroundColor: "#FF8189",
-      },
-      {
-        title: "Infraded Night Vision",
-        description: "",
-        icon: "/images/wavy-icon-6.png",
-        backgroundColor: "#F5CE3E",
-      },
-    ],
+    
   },
   {
     id: 3,
@@ -213,44 +135,7 @@ const productData: Product[] = [
         description: "1080 HD 5.0 Display",
       },
     ],
-    Features: [
-      {
-        title: "Secure & Private Connection",
-        description: "",
-        icon: "/images/mona-icon-1.png",
-        backgroundColor: "#3F738D",
-      },
-      {
-        title: "Two Way Connection",
-        description: "",
-        icon: "/images/mona-icon-2.png",
-        backgroundColor: "#FF8189",
-      },
-      {
-        title: "Superion 4x Zoom",
-        description: "",
-        icon: "/images/mona-icon-3.png",
-        backgroundColor: "#F5CE3E",
-      },
-      {
-        title: "Vox Function",
-        description: "",
-        icon: "/images/mona-icon-4.png",
-        backgroundColor: "#3F738D",
-      },
-      {
-        title: "Rechargable Battery",
-        description: "",
-        icon: "/images/mona-icon-5.png",
-        backgroundColor: "#FF8189",
-      },
-      {
-        title: "Up to 960tf(300 meters)",
-        description: "",
-        icon: "/images/mona-icon-6.png",
-        backgroundColor: "#F5CE3E",
-      },
-    ],
+   
   },
   {
     id: 4,
@@ -290,44 +175,7 @@ const productData: Product[] = [
     //     description: "1080 HD 5.0 Display",
     //   },
     // ],
-    // Features: [
-    //   {
-    //     title: "Secure & Private Connection",
-    //     description: "",
-    //     icon: "/images/mona-icon-1.png",
-    //     backgroundColor: "#3F738D",
-    //   },
-    //   {
-    //     title: "Two Way Connection",
-    //     description: "",
-    //     icon: "/images/mona-icon-2.png",
-    //     backgroundColor: "#FF8189",
-    //   },
-    //   {
-    //     title: "Superion 4x Zoom",
-    //     description: "",
-    //     icon: "/images/mona-icon-3.png",
-    //     backgroundColor: "#F5CE3E",
-    //   },
-    //   {
-    //     title: "Vox Function",
-    //     description: "",
-    //     icon: "/images/mona-icon-4.png",
-    //     backgroundColor: "#3F738D",
-    //   },
-    //   {
-    //     title: "Rechargable Battery",
-    //     description: "",
-    //     icon: "/images/mona-icon-5.png",
-    //     backgroundColor: "#FF8189",
-    //   },
-    //   {
-    //     title: "Up to 960tf(300 meters)",
-    //     description: "",
-    //     icon: "/images/mona-icon-6.png",
-    //     backgroundColor: "#F5CE3E",
-    //   },
-    // ],
+
   },
   
 ];
@@ -343,7 +191,7 @@ export default function Page({ params: { id } }: { params: { id: string } }) {
   return (
     <div className="min-h-screen pt-12 h-auto  mx-auto  ">
       {product?.header?.map((header: any, index: any) => (
-        <div className="flex flex-col  lg:flex-row gap-x-4 mx-auto justify-center  pr-0">
+        <div className="flex  lg:flex-row gap-x-4 mx-auto justify-center  pr-0">
           <div className=" w-full lg:max-w-[600px] lg:max-h-[400px]">
             {header?.media?.type === "video" ? ( 
               <video
@@ -368,8 +216,10 @@ export default function Page({ params: { id } }: { params: { id: string } }) {
               </p> */}
 
             {product?.headericon?.map((headericon: any, index: any) => (
-              <div className="grid grid-cols-2  gap-y-2 ">
+              <div className="grid grid-cols-2">
+                
                 <div className="flex flex-row items-center gap-x-2 ">
+                  
                   <div className="flex  h-[50px] w-[50px] bg-[#FF8189] rounded-full justify-center items-center">
                     <img
                       src={headericon.icon}
@@ -386,33 +236,20 @@ export default function Page({ params: { id } }: { params: { id: string } }) {
         </div>
       ))}
 
-      <div className="px-20 py-[40px] flex  flex-col md:flex-row items-center justify-center gap-x-20">
-        <div className=" max-h-[300px]">
+      <div className="px-20 py-[40px] flex  w-full flex-col md:flex-row items-center justify-center gap-x-20 mx-auto">
+        <div className=" h-[300px]">
           <img
-            className="object-contain h-[200px]"
+            className="object-contain h-[300px]"
             src={product.imageSrc}
             alt={product.name}
           />
         </div>
-        <div className="flex flex-col gap-y-2">
-          {product?.Features?.map((feature: any, index: any) => (
-            <div
-              key={index}
-              className="flex flex-row h-[70px] w-[500px] text-white whitespace-normal gap-4 items-center px-4"
-              style={{ backgroundColor: feature.backgroundColor }}
-            >
-              <img
-                src={feature.icon}
-                className="w-[40px] h-[40px]"
-                alt={feature.title}
-              />
-              <div className="flex flex-col">
-                <p className="font-bold text-">{feature.title}</p>
-                <p className="font-semibold text-sm">{feature.description}</p>
-              </div>
-            </div>
-          ))}
+        <div className="flex flex-col max-w-[400px]">
+        <p className="text-xl font-normal  text-wrap  ">
+          {product.description}
+        </p>
         </div>
+
       </div>
       <p className="text-[#2D617B] font-bold text-4xl text-center">
         More Products

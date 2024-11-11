@@ -12,7 +12,12 @@ export default function Footer({ locale }: any) {
           <p>Monday to Friday</p>
           <p>From 9am to 5pm</p>
           
-          <p className="font-semibold">TrendingBaby@gmail.com</p>
+          <p className=" flex flex-col font-semibold"> 
+           <p> steve@trendingbaby.com</p>
+           <p>john@trendingbaby.com</p>
+            <p>christian@trendingbaby.com</p>
+           <p> sales@trendingbaby.com</p>
+          </p>
         </div>
         <div className=" flex-col gap-y-2 py-12 hidden md:flex">
           <Link href={`/`}><p>Home</p></Link>

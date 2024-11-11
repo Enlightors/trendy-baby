@@ -50,7 +50,7 @@ const productData: Products[] = [
 export default function Productspage() {
   return (
     <div>
-      <p className="text-center text-[#2D617B] text-3xl sm:text-3xl md:text-4xl font-semibold lg:text-4xl py-4 px-20">
+      <p className="text-center text-[#2D617B] text-3xl sm:text-3xl md:text-4xl font-semibold lg:text-4xl pb-4 px-[20px]">
         Make feeding your baby easier with TrendingBaby
       </p>
       {/* Change to grid layout */}
