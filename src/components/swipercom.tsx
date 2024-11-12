@@ -10,16 +10,17 @@ import SwiperCore from "swiper";
 interface Product {
   id: number;
   videoSrc: string;
+  poster: string;
   name: string;
 }
 
 const productData: Product[] = [
-  { id: 1, videoSrc: "/videos/trending-baby-4.mp4", name: "Smart Formula Milk Maker O5" },
-  { id: 2, videoSrc: "/videos/trending-baby-4.mp4", name: "Wavy Video Baby Monitor" },
-  { id: 3, videoSrc: "/videos/trending-baby-4.mp4", name: "Mono Full HD Video Baby Monitor" },
-  { id: 4, videoSrc: "/videos/trending-baby-4.mp4", name: "Baby Crib" },
-  { id: 5, videoSrc: "/videos/trending-baby-4.mp4", name: "Advanced Baby Formula" },
-  { id: 6, videoSrc: "/videos/trending-baby-4.mp4", name: "One Step Baby Food Maker" },
+  { id: 1, videoSrc: "/videos/trending-baby-4.mp4", poster: "/images/poster-1.jpg", name: "Smart Formula Milk Maker O5" },
+  { id: 2, videoSrc: "/videos/trending-baby-4.mp4", poster: "/images/poster-2.jpg", name: "Wavy Video Baby Monitor" },
+  { id: 3, videoSrc: "/videos/trending-baby-4.mp4", poster: "/images/poster-3.jpg", name: "Mono Full HD Video Baby Monitor" },
+  { id: 4, videoSrc: "/videos/trending-baby-4.mp4", poster: "/images/poster-4.jpg", name: "Baby Crib" },
+  { id: 5, videoSrc: "/videos/trending-baby-4.mp4", poster: "/images/poster-5.jpg", name: "Advanced Baby Formula" },
+  { id: 6, videoSrc: "/videos/trending-baby-4.mp4", poster: "/images/poster-6.jpg", name: "One Step Baby Food Maker" },
 ];
 
 interface ProductscomProps {
@@ -78,14 +79,14 @@ export default function Productscom({
         }}
         modules={[Navigation, A11y]}
         spaceBetween={10}
-        slidesPerView={5} // Show five videos at a time by default
+        slidesPerView={5}
         loop={true}
         navigation={{ enabled: false }}
         breakpoints={{
-          320: { slidesPerView: 1 }, // Only 1 video for very small screens
-          640: { slidesPerView: 1 }, // Ensure 1 video for mobile
-          768: { slidesPerView: 2 }, // 2 videos for tablets
-          1024: { slidesPerView: 5 }, // 5 videos for larger screens
+          320: { slidesPerView: 2 },
+          640: { slidesPerView: 2 },
+          768: { slidesPerView: 2 },
+          1024: { slidesPerView: 5 },
         }}
       >
         {filteredProducts.map((product) => (
@@ -95,6 +96,7 @@ export default function Productscom({
                 <video
                   className="h-full w-full object-cover"
                   src={product.videoSrc}
+                  poster={product.poster} // Adding the poster attribute
                   preload="auto"
                   muted
                   playsInline
@@ -153,3 +155,4 @@ export default function Productscom({
     </div>
   );
 }
+
