@@ -8,6 +8,7 @@ import Contacthome from "@/src/components/Contacthome";
 import Video2 from "@/src/components/Video2";
 import Swipercom from "@/src/components/swipercom";
 import Banner from "@/src/components/Banner";
+import Productscom from "@/src/components/Productscom";
 
 
 
@@ -15,10 +16,10 @@ export default function Home() {
   return (
     <div>
       <Header />
-      <p className="text-center text-[#2D617B] text-3xl sm:text-3xl md:text-4xl font-semibold lg:text-4xl py-4 px-20">
+      <p className="text-center text-[#2D617B] text-3xl sm:text-3xl md:text-4xl font-semibold lg:text-4xl  pb-4 px-20">
         Make feeding your baby easier with TrendingBaby
       </p>
-      <Products />
+      <Productscom  hasBackground={true} /> 
       <Aboutcom/>
      <Contacthome/>
      <Banner/>

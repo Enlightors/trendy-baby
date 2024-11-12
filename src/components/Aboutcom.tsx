@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export default function Aboutcom() {
   return (
-    <div className="flex flex-col md:flex-row  max-h-[700px] px-20 pt-10 mx-auto gap-x-20 items-center justify-center ">
+    <div className="flex flex-col md:flex-row  max-h-[700px] px-20  pt-2 md:pt-10 mx-auto gap-x-20 items-center justify-center ">
 
       <div className="flex flex-col justify-center  md:justify-normal   ">
         <div className=" flex justify-center md:justify-normal">

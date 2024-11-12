@@ -4,9 +4,9 @@ import Link from 'next/link'
 
 export default function page() {
   return (
-    <div className='flex flex-col gap-y-20'>
+    <div className='flex flex-col gap-y-20  '>
 
-    <div className="flex flex-col lg:flex-row items-center justify-between max-h-[700px] px-20  gap-x-10 ">
+    <div className="flex flex-col lg:flex-row items-center justify-between max-h-[700px]  px-6 md:px-20  gap-x-10 ">
       <div className="flex flex-col  ">
         <div>
           <img
@@ -35,7 +35,7 @@ export default function page() {
       <div className="">
         <img
           src="/images/trending-baby-12.png"
-          className="max-w-[560px] max-h-[500px] object-contain"
+          className="  md:max-w-[560px] max-h-[500px] object-contain"
         />
       </div>
 
@@ -45,12 +45,12 @@ export default function page() {
     </div>
 
 
-    <div className="flex flex-col lg:flex-row  justify-between max-h-[700px] px-20 gap-x-10 pt-5 md:pb-0 ">
+    <div className="flex flex-col lg:flex-row  justify-between max-h-[700px] px-6 md:px-20  gap-x-10 pt-5 md:pb-0 ">
 
     <div className="pb-10">
         <img
           src="/images/trending-baby-15.jpg"
-          className="max-h-[500px] object-contain  max-w-[560px]"
+          className="max-h-[500px] object-contain  md:max-w-[560px]"
         />
       </div>
       <div className="flex flex-col  ">

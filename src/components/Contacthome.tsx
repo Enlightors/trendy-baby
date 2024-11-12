@@ -17,7 +17,7 @@ export default function ContactForm() {
   }
 
   return (
-    <div className='pt-14'>
+    <div className='md:pt-14'>
     <div
       className="py-12 bg-cover bg-center"
       style={{ backgroundImage: "url('/images/trending-baby-12.png')" }}

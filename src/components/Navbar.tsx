@@ -43,7 +43,7 @@ export default function NavBar({ locale, T }: { locale: string; T: any }) {
       <div className="fixed top-0 w-full z-50 flex flex-col bg-[#00B1D5] h-[60px] items-center justify-center text-white">
         Make feeding your baby easier with TrendingBaby
       </div>
-      <div className="bg-white h-[120px] pt-[100px] border-transparent border-b-[#fff] border-[2px] flex items-center  justify-between px-20 pb-11">
+      <div className="bg-white h-[120px] pt-[100px] border-transparent border-b-[#fff] border-[2px] flex items-center  justify-between  px-2  md:px-20 pb-11">
         <div>
           <Link href={`/${locale}`} key="home">
             <Image
@@ -126,7 +126,7 @@ export default function NavBar({ locale, T }: { locale: string; T: any }) {
         <div
           className={`${
             MobileMenu ? "opacity-100" : "opacity-0 hidden"
-          } transition-all duration-300 ease-in-out fixed top-0 left-0  right-0 z-50 bottom-0 bg-[#26A2BE] flex flex-col px-20  items-center justify-center `}
+          } transition-all duration-300 ease-in-out fixed top-0 left-0  right-0 z-50 bottom-0 bg-[#26A2BE] flex flex-col px-20  gap-y-4 items-center justify-center `}
         >
           {Pages.map((page) => (
             <Link
@@ -135,7 +135,7 @@ export default function NavBar({ locale, T }: { locale: string; T: any }) {
               key={page.name}
             >
               <p
-                className={`text-white ${
+                className={`text-white text-4xl ${
                   locale === "en" && "first-letter:uppercase"
                 }`}
               >

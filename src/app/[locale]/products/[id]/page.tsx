@@ -254,7 +254,7 @@ export default function Page({ params: { id } }: { params: { id: string } }) {
       <p className="text-[#2D617B] font-bold text-4xl text-center">
         More Products
       </p>
-      <Productscom filter={[productId]} />
+      <Productscom filter={[productId]} hasBackground={true} /> 
     </div>
   );
 }
