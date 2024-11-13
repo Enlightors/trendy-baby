@@ -3,15 +3,15 @@ import Link from "next/link";
 
 export default function Aboutcom() {
   return (
-    <div className="flex flex-col md:flex-row  max-h-[700px]  px-6 md:px-20  pt-2 md:pt-10 mx-auto gap-x-20 items-center justify-center ">
+    <div className="flex flex-col md:flex-row  max-h-[700px]  px-6 md:px-20 pb-10 pt-2 md:pt-10 mx-auto gap-x-20 items-center justify-center ">
 
       <div className="flex flex-col justify-center  md:justify-normal   ">
-        <div className=" flex justify-center md:justify-normal">
+        <div className=" flex justify-center md:justify-normal  ">
           <img
             src="/images/Trending-baby-logo.png"
             alt="trendingbaby-logo"
-            width={200}
-            height={200}
+            width={150}
+            height={150}
             className=" object-contain"
           />
 

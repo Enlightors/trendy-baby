@@ -20,12 +20,15 @@ export default function Home() {
         Make feeding your baby easier with TrendingBaby
       </p>
       <Productscom  hasBackground={true} /> 
+
+      <Banner/>
       <Aboutcom/>
-     <Contacthome/>
-     <Banner/>
+    
+    
  
       <Video2/> 
     <Swipercom/>
+    <Contacthome/>
       
     </div>
   );

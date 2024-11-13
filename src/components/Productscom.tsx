@@ -26,17 +26,17 @@ const productData: Product[] = [
   {
     id: 4,
     imageSrc: "/images/trending-baby-4.png",
-    name: "Baby Crib",
+    name: "Furniture",
   },
   {
     id: 5,
-    imageSrc: "/images/trending-baby-6.png",
-    name: "Baby Crib",
+    imageSrc: "/images/5.png",
+    name: "Furniture",
   },
   {
     id: 6,
-    imageSrc: "/images/trending-baby-7.png",
-    name: "Baby Crib",
+    imageSrc: "/images/6.png",
+    name: "Furniture",
   },
 ];
 
@@ -65,7 +65,7 @@ export default function Productscom({
         <div key={product.id} className="flex flex-col items-center justify-center">
           <Link href={`/products/${product.id}`} className="text-center">
             <div className="max-h-[200px] h-[150px] flex items-center justify-center">
-              <img className="h-[100px] object-contain" src={product.imageSrc} alt={product.name} />
+              <img className="h-[150px] object-contain" src={product.imageSrc} alt={product.name} />
             </div>
             <div className="max-w-[200px]">
               <p

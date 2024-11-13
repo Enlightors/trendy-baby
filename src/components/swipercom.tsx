@@ -15,12 +15,12 @@ interface Product {
 }
 
 const productData: Product[] = [
-  { id: 1, videoSrc: "/videos/trending-baby-4.mp4", poster: "/images/poster-1.jpg", name: "Smart Formula Milk Maker O5" },
-  { id: 2, videoSrc: "/videos/trending-baby-4.mp4", poster: "/images/poster-2.jpg", name: "Wavy Video Baby Monitor" },
-  { id: 3, videoSrc: "/videos/trending-baby-4.mp4", poster: "/images/poster-3.jpg", name: "Mono Full HD Video Baby Monitor" },
-  { id: 4, videoSrc: "/videos/trending-baby-4.mp4", poster: "/images/poster-4.jpg", name: "Baby Crib" },
-  { id: 5, videoSrc: "/videos/trending-baby-4.mp4", poster: "/images/poster-5.jpg", name: "Advanced Baby Formula" },
-  { id: 6, videoSrc: "/videos/trending-baby-4.mp4", poster: "/images/poster-6.jpg", name: "One Step Baby Food Maker" },
+  { id: 1, videoSrc: "/videos/trending-baby-4.mp4", poster: "/images/trending-baby-13.png", name: "Smart Formula Milk Maker O5" },
+  { id: 2, videoSrc: "/videos/trending-baby-4.mp4", poster: "/images/trending-baby-13.png", name: "Wavy Video Baby Monitor" },
+  { id: 3, videoSrc: "/videos/trending-baby-4.mp4", poster: "/images/trending-baby-13.png", name: "Mono Full HD Video Baby Monitor" },
+  { id: 4, videoSrc: "/videos/trending-baby-4.mp4", poster: "/images/trending-baby-13.png", name: "Baby Crib" },
+  { id: 5, videoSrc: "/videos/trending-baby-4.mp4", poster: "/images/trending-baby-13.png", name: "Advanced Baby Formula" },
+  { id: 6, videoSrc: "/videos/trending-baby-4.mp4", poster: "/images/trending-baby-13.png", name: "One Step Baby Food Maker" },
 ];
 
 interface ProductscomProps {
@@ -33,25 +33,36 @@ export default function Productscom({
   isPopover = false,
 }: ProductscomProps) {
   const swiperRef = useRef<SwiperCore | null>(null);
-  const [playingVideo, setPlayingVideo] = useState<{ [key: number]: boolean }>({});
+  const [playingVideoId, setPlayingVideoId] = useState<number | null>(null);
 
   const filteredProducts = productData.filter(
     (product) => !filter.includes(product.id)
   );
 
   const togglePlayPause = (id: number, videoRef: HTMLVideoElement) => {
-    if (playingVideo[id]) {
+    // If another video is playing, pause it
+    if (playingVideoId !== null && playingVideoId !== id) {
+      const prevVideoRef = document.getElementById(
+        `video-${playingVideoId}`
+      ) as HTMLVideoElement;
+      if (prevVideoRef) {
+        prevVideoRef.pause();
+      }
+    }
+
+    // Toggle play/pause for the selected video
+    if (playingVideoId === id) {
       videoRef.pause();
-      setPlayingVideo((prev) => ({ ...prev, [id]: false }));
+      setPlayingVideoId(null);
     } else {
       videoRef.play();
-      setPlayingVideo((prev) => ({ ...prev, [id]: true }));
+      setPlayingVideoId(id);
     }
   };
 
   return (
     <div className="mx-auto py-8 px-4 relative">
-      {/* Custom Navigation Buttons */}
+      {/* Navigation buttons */}
       <button
         onClick={() => swiperRef.current?.slidePrev()}
         className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-white hover:bg-gray-200 text-gray-700 p-2 rounded-full shadow-lg z-10"
@@ -92,23 +103,22 @@ export default function Productscom({
         {filteredProducts.map((product) => (
           <SwiperSlide key={product.id}>
             <div className="relative flex flex-col items-center w-full justify-center">
-              <div className="relative max-h-[300px] h-[300px] w-full flex items-center justify-center overflow-hidden">
+              <div className="relative max-h-[700px] h-[400px] w-full flex items-center justify-center overflow-hidden">
                 <video
                   className="h-full w-full object-cover"
                   src={product.videoSrc}
-                  poster={product.poster} // Adding the poster attribute
+                  poster={product.poster}
                   preload="auto"
                   muted
                   playsInline
                   id={`video-${product.id}`}
                   ref={(videoRef) => {
-                    if (videoRef && playingVideo[product.id]) {
+                    if (videoRef && playingVideoId === product.id) {
                       videoRef.play();
                     }
                   }}
                 />
 
-                {/* Overlay with play/pause button */}
                 <button
                   onClick={() => {
                     const videoRef = document.getElementById(
@@ -118,7 +128,7 @@ export default function Productscom({
                   }}
                   className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center"
                 >
-                  {playingVideo[product.id] ? (
+                  {playingVideoId === product.id ? (
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       fill="currentColor"
@@ -155,4 +165,3 @@ export default function Productscom({
     </div>
   );
 }
-

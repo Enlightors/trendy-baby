@@ -22,10 +22,10 @@ export default function ContactForm() {
       className="py-12 bg-cover bg-center"
       style={{ backgroundImage: "url('/images/trending-baby-12.png')" }}
     >
-      <div className="container mx-auto max-w-xl bg-[#00B1D5] px-6 py-4 rounded-lg shadow-lg">
+      <div className="container mx-auto max-w-xl bg-[#00B1D5] px-6 py-2 rounded-lg shadow-lg">
         <h1 className="text-3xl font-bold text-center text-white mb-8">CONTACT US</h1>
         
-        <div className="space-y-4 text-gray-100 mb-8">
+        <div className="space-y-2 text-gray-100 mb-8">
           <p>
             Our number 1 goal is your satisfaction. Our customer service team is available to help you through the following channels:{' '}
             <a href="#" className="text-blue-200 underline hover:text-blue-400">Help Center</a>,
@@ -33,7 +33,7 @@ export default function ContactForm() {
           </p>
         </div>
 
-        <form onSubmit={handleSubmit} className="grid grid-cols-2 gap-4">
+        <form onSubmit={handleSubmit} className="grid grid-cols-2 gap-x-4">
           <div className="col-span-2 sm:col-span-1">
             <label htmlFor="name" className="block text-sm font-medium text-gray-100">Name</label>
             <input

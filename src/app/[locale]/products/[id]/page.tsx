@@ -177,6 +177,47 @@ Our advanced Formula Milk Maker combines cutting-edge technology and safety to c
     // ],
 
   },
+  {
+    id: 2,
+    imageSrc: "/images/2.png",
+    name: "Wavy Video Baby Monitor",
+    description: "",
+    header: [
+      {
+        media: {
+          type: "video",
+          url: "/videos/Trending-baby-2.mp4",
+        },
+        title: " Wavy Monitor",
+        description: "  ",
+      },
+    ],
+    // headericon: [
+    //   {
+    //     bg: "#FF8189",
+    //     icon: "/images/wavy-1.png",
+    //     description: "360 View",
+    //   },
+    //   {
+    //     bg: "",
+    //     icon: "/images/wavy-2.png",
+    //     description: "Temprature Monitoring",
+    //   },
+    //   {
+    //     bg: "",
+    //     icon: "/images/wavy-3.png",
+    //     description: "Two Way-Communication",
+    //   },
+    //   {
+    //     bg: "",
+    //     icon: "/images/wavy-4.png",
+    //     description: "2x Close Up zoom",
+    //   },
+    // ],
+
+    
+  },
+
   
 ];
 
@@ -191,7 +232,7 @@ export default function Page({ params: { id } }: { params: { id: string } }) {
   return (
     <div className="min-h-screen pt-12 h-auto  mx-auto  ">
       {product?.header?.map((header: any, index: any) => (
-        <div className="flex  lg:flex-row gap-x-4 mx-auto justify-center  pr-0">
+        <div className="flex  flex-col lg:flex-row gap-x-4 mx-auto justify-center  pr-0">
           <div className=" w-full lg:max-w-[600px] lg:max-h-[400px]">
             {header?.media?.type === "video" ? ( 
               <video
@@ -216,9 +257,9 @@ export default function Page({ params: { id } }: { params: { id: string } }) {
               </p> */}
 
             {product?.headericon?.map((headericon: any, index: any) => (
-              <div className="grid grid-cols-2">
+              <div className="grid grid-cols-2 ">
                 
-                <div className="flex flex-row items-center gap-x-2 ">
+                <div className="flex  flex-row items-center gap-x-2 ">
                   
                   <div className="flex  h-[50px] w-[50px] bg-[#FF8189] rounded-full justify-center items-center">
                     <img
@@ -244,7 +285,7 @@ export default function Page({ params: { id } }: { params: { id: string } }) {
             alt={product.name}
           />
         </div>
-        <div className="flex flex-col max-w-[400px]">
+        <div className="flex flex-col text-center md:text-start py-10  md:py-0 max-w-[400px]">
         <p className="text-xl font-normal  text-wrap  ">
           {product.description}
         </p>

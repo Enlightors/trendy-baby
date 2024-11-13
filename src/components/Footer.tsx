@@ -24,6 +24,7 @@ export default function Footer({ locale }: any) {
           <Link href={`/products`}><p>Products</p></Link>
           <Link href={`/about`}><p>About Us</p></Link>
           <Link href={`/contact`}><p>Contact</p></Link>
+          <Link href={`/privacy`}><p>Privacy Policy</p></Link>
         </div>
 
         <div className="flex flex-col gap-y-2">

@@ -40,23 +40,23 @@ export default function NavBar({ locale, T }: { locale: string; T: any }) {
 
   return (
     <>
-      <div className="fixed top-0 w-full z-50 flex flex-col bg-[#00B1D5] h-[60px] items-center justify-center text-white">
+      <div className="fixed top-0 w-full z-50 flex flex-col bg-[#00B1D5] h-[40px] items-center justify-center text-white">
         Make feeding your baby easier with TrendingBaby
       </div>
-      <div className="bg-white h-[120px] pt-[100px] border-transparent border-b-[#fff] border-[2px] flex items-center  justify-between  px-2  md:px-20 pb-11">
+      <div className="bg-white h-[60px] pt-[60px]  border-transparent border-b-[#fff] border-[2px] flex items-center  justify-between  px-2  md:px-20 pb-6">
         <div>
           <Link href={`/${locale}`} key="home">
             <Image
               src="/images/Trending-baby-logo.png"
               loading="lazy"
-               width={266}
-              height={266}
+              width={170}
+              height={170}
               alt="Logo"
             />
           </Link>
         </div>
 
-        <div className="items-center gap-[20px] hidden md:flex justify-between">
+        <div className="items-center gap-x-[10px] hidden md:flex justify-between">
           {Pages.map((page) =>
             page.name === "Products" ? (
               <Popover
@@ -69,7 +69,7 @@ export default function NavBar({ locale, T }: { locale: string; T: any }) {
                     onMouseEnter={() => setPopoverOpen(true)}
                     onMouseLeave={() => setPopoverOpen(false)}
                     onClick={() => router.push(`/${locale}${page.path}`)}
-                    className={`px-[20px] cursor-pointer  justify-center items-center flex flex-col h-[80px]   ${
+                    className={`px-[20px] cursor-pointer  justify-center items-center flex flex-col h-[50px]   ${
                       path === `/${locale}${page.path}`
                         ? "border-transparent border-[2px]"
                         : ""
@@ -88,7 +88,7 @@ export default function NavBar({ locale, T }: { locale: string; T: any }) {
                   onMouseEnter={() => setPopoverOpen(true)}
                   onMouseLeave={() => setPopoverOpen(false)}
                 >
-                  <Productscom isPopover={true}/>
+                  <Productscom isPopover={true} />
                 </PopoverContent>
               </Popover>
             ) : (
@@ -153,6 +153,6 @@ const Pages = [
   { name: "Home", path: "/" },
   { name: "Products", path: "/products" },
   { name: "About", path: "/about" },
- 
+
   { name: "Contact", path: "/contact" },
 ];
