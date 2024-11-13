@@ -46,7 +46,7 @@ const iconData: Icon[] = [
 
 const Banner = () => {
     return (
-      <div className="mx-auto flex flex-wrap bg-[#ecf0f2] justify-center gap-y-0 items-center  h-[400px] md:h-[350px] px-[80px] mx-auto">
+      <div className="flex flex-wrap bg-[#ecf0f2] justify-center gap-y-0 items-center  h-[400px] md:h-[350px] px-[80px] mx-auto">
         {iconData.map((icon) => (
           <div
             key={icon.id}
