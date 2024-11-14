@@ -10,7 +10,7 @@ export default function Header() {
   };
 
   return (
-    <div className="relative h-[250px] md:h-[700px] overflow-hidden">
+    <div className="relative h-[250px] md:h-[600px] overflow-hidden">
       <video
          className='absolute md:top-0 md:left md:right  w-full h-[40hv] md:w-full md:h-[110vh] object-cover  '
         src="/videos/trending-baby-1.mp4"

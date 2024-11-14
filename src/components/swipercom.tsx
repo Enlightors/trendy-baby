@@ -10,17 +10,16 @@ import SwiperCore from "swiper";
 interface Product {
   id: number;
   videoSrc: string;
-  poster: string;
   name: string;
 }
 
 const productData: Product[] = [
-  { id: 1, videoSrc: "/videos/trending-baby-4.mp4", poster: "/images/trending-baby-13.png", name: "Smart Formula Milk Maker O5" },
-  { id: 2, videoSrc: "/videos/trending-baby-4.mp4", poster: "/images/trending-baby-13.png", name: "Wavy Video Baby Monitor" },
-  { id: 3, videoSrc: "/videos/trending-baby-4.mp4", poster: "/images/trending-baby-13.png", name: "Mono Full HD Video Baby Monitor" },
-  { id: 4, videoSrc: "/videos/trending-baby-4.mp4", poster: "/images/trending-baby-13.png", name: "Baby Crib" },
-  { id: 5, videoSrc: "/videos/trending-baby-4.mp4", poster: "/images/trending-baby-13.png", name: "Advanced Baby Formula" },
-  { id: 6, videoSrc: "/videos/trending-baby-4.mp4", poster: "/images/trending-baby-13.png", name: "One Step Baby Food Maker" },
+  { id: 1, videoSrc: "/videos/trending-baby-3.mp4", name: "Smart Formula Milk Maker O5" },
+  { id: 2, videoSrc: "/videos/trending-baby-3.mp4", name: "Wavy Video Baby Monitor" },
+  { id: 3, videoSrc: "/videos/trending-baby-3.mp4", name: "Mono Full HD Video Baby Monitor" },
+  { id: 4, videoSrc: "/videos/trending-baby-3.mp4", name: "Baby Crib" },
+  { id: 5, videoSrc: "/videos/trending-baby-3.mp4", name: "Advanced Baby Formula" },
+  { id: 6, videoSrc: "/videos/trending-baby-3.mp4", name: "One Step Baby Food Maker" },
 ];
 
 interface ProductscomProps {
@@ -91,7 +90,7 @@ export default function Productscom({
         modules={[Navigation, A11y]}
         spaceBetween={10}
         slidesPerView={5}
-        loop={true}
+       
         navigation={{ enabled: false }}
         breakpoints={{
           320: { slidesPerView: 2 },
@@ -107,8 +106,7 @@ export default function Productscom({
                 <video
                   className="h-full w-full object-cover"
                   src={product.videoSrc}
-                  poster={product.poster}
-                  preload="auto"
+                  preload="metadata"
                   muted
                   playsInline
                   id={`video-${product.id}`}
@@ -165,3 +163,4 @@ export default function Productscom({
     </div>
   );
 }
+

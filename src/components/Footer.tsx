@@ -11,11 +11,9 @@ export default function Footer({ locale }: any) {
           <p> Customer Service</p>
           <p>Monday to Friday</p>
           <p>From 9am to 5pm</p>
+          <p>Phone: +000 0000 0000</p>
           
           <p className=" flex flex-col font-semibold"> 
-           <p> steve@trendingbaby.com</p>
-           <p>john@trendingbaby.com</p>
-            <p>christian@trendingbaby.com</p>
            <p> sales@trendingbaby.com</p>
           </p>
         </div>
@@ -46,6 +44,8 @@ export default function Footer({ locale }: any) {
           </div>
           
           </div>
+          <p className="font-semibold text-xl">Address</p>
+          <p>Via Pescallo, 22021 Bellagio Co,Italy </p>
 
           {/* <span className="bg-[#ecf0f3] rounded-full h-[25px] w-[25px] flex items-center justify-center">
             <a href="" target="_blank" rel="noreferrer">
