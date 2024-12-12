@@ -62,10 +62,17 @@ export default function Productscom({
       } grid grid-cols-2 gap-4 md:flex md:flex-row my-[30px] place-items-center gap-x-8 justify-center items-center  px-[20px]  h-[700px] md:h-[250px]`}
     >
       {filteredProducts.map((product) => (
-        <div key={product.id} className="flex flex-col items-center justify-center">
+        <div
+          key={product.id}
+          className="flex flex-col items-center justify-center"
+        >
           <Link href={`/products/${product.id}`} className="text-center">
             <div className="max-h-[200px] h-[150px] flex items-center justify-center">
-              <img className="h-[150px] object-contain" src={product.imageSrc} alt={product.name} />
+              <img
+                className="h-[150px] object-contain"
+                src={product.imageSrc}
+                alt={product.name}
+              />
             </div>
             <div className="max-w-[200px]">
               <p

@@ -101,7 +101,10 @@ export default function Productspage() {
       {/* Change to grid layout */}
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-10 my-[30px] items-center justify-center px-[40px]">
         {productData.map((products) => (
-          <div key={products.id} className="flex flex-col items-center justify-center">
+          <div
+            key={products.id}
+            className="flex flex-col items-center justify-center"
+          >
             <Link href={`/products/${products.id}`} className="text-center">
               <div className="max-h-[200px] h-[200px] flex items-center justify-center">
                 <img
@@ -124,4 +127,3 @@ export default function Productspage() {
     </div>
   );
 }
-

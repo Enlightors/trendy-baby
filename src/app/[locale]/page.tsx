@@ -10,8 +10,6 @@ import Swipercom from "@/src/components/swipercom";
 import Banner from "@/src/components/Banner";
 import Productscom from "@/src/components/Productscom";
 
-
-
 export default function Home() {
   return (
     <div>
@@ -19,17 +17,14 @@ export default function Home() {
       <p className="text-center text-[#2D617B] text-3xl sm:text-3xl md:text-4xl font-semibold lg:text-4xl xl:pt-[20px] pb-1 px-20">
         Make feeding your baby easier with TrendingBaby
       </p>
-      <Productscom  hasBackground={true} /> 
+      <Productscom hasBackground={true} />
 
-      <Banner/>
-      <Aboutcom/>
-    
-    
- 
-      <Video2/> 
-    <Swipercom/>
-    <Contacthome/>
-      
+      <Banner />
+      <Aboutcom />
+
+      <Video2 />
+      <Swipercom />
+      <Contacthome />
     </div>
   );
 }

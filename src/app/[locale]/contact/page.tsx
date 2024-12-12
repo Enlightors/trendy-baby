@@ -1,14 +1,13 @@
-import Contact from '@/src/components/Contact'
-import React from 'react'
+import Contact from "@/src/components/Contact";
+import React from "react";
 
-type Props = {}
+type Props = {};
 
-
-export default  function page({}: Props) {
+export default function page({}: Props) {
   return (
     <div>
-        <Contact/>
+      <Contact />
     </div>
-  )
+  );
 }
-page
+page;

@@ -12,17 +12,27 @@ export default function Footer({ locale }: any) {
           <p>Monday to Friday</p>
           <p>From 9am to 5pm</p>
           <p>Phone: +000 0000 0000</p>
-          
-          <p className=" flex flex-col font-semibold"> 
-           <p> sales@trendingbaby.com</p>
+
+          <p className=" flex flex-col font-semibold">
+            <p> sales@trendingbaby.com</p>
           </p>
         </div>
         <div className=" flex-col gap-y-2 py-12 hidden md:flex">
-          <Link href={`/`}><p>Home</p></Link>
-          <Link href={`/products`}><p>Products</p></Link>
-          <Link href={`/about`}><p>About Us</p></Link>
-          <Link href={`/contact`}><p>Contact</p></Link>
-          <Link href={`/privacy`}><p>Privacy Policy</p></Link>
+          <Link href={`/`}>
+            <p>Home</p>
+          </Link>
+          <Link href={`/products`}>
+            <p>Products</p>
+          </Link>
+          <Link href={`/about`}>
+            <p>About Us</p>
+          </Link>
+          <Link href={`/contact`}>
+            <p>Contact</p>
+          </Link>
+          <Link href={`/privacy`}>
+            <p>Privacy Policy</p>
+          </Link>
         </div>
 
         <div className="flex flex-col gap-y-2">
@@ -33,16 +43,21 @@ export default function Footer({ locale }: any) {
             </a>
           </span> */}
           <div className="flex flex-row gap-x-2">
-          <span className="bg-[#ecf0f3] rounded-full h-[25px] w-[25px] flex items-center justify-center">
-            <a href="https://www.instagram.com/trending.babybh/profilecard/?igsh=MW5za2E4bDl4MmMzMQ==" target="_blank" rel="noreferrer">
-              <FaInstagram color="#5ac5f1" />
-            </a>
-          </span>
-          
-        <div>
-            <a href="https://www.instagram.com/trending.babybh/profilecard/?igsh=MW5za2E4bDl4MmMzMQ%3D%3D">Instagram</a>
-          </div>
-          
+            <span className="bg-[#ecf0f3] rounded-full h-[25px] w-[25px] flex items-center justify-center">
+              <a
+                href="https://www.instagram.com/trending.babybh/profilecard/?igsh=MW5za2E4bDl4MmMzMQ=="
+                target="_blank"
+                rel="noreferrer"
+              >
+                <FaInstagram color="#5ac5f1" />
+              </a>
+            </span>
+
+            <div>
+              <a href="https://www.instagram.com/trending.babybh/profilecard/?igsh=MW5za2E4bDl4MmMzMQ%3D%3D">
+                Instagram
+              </a>
+            </div>
           </div>
           <p className="font-semibold text-xl">Address</p>
           <p>Via Pescallo, 22021 Bellagio Co,Italy </p>
@@ -52,7 +67,6 @@ export default function Footer({ locale }: any) {
               <FaTiktok color="#5ac5f1" />
             </a>
           </span> */}
-          
         </div>
       </div>
       <div className="flex flex-col items-center pt-10 md:pt-0 ">

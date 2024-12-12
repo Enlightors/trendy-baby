@@ -1,16 +1,13 @@
-import Banner from '@/src/components/Banner'
-import Privacy from '@/src/components/Privacy'
-import React from 'react'
+import Banner from "@/src/components/Banner";
+import Privacy from "@/src/components/Privacy";
+import React from "react";
 
 function page() {
   return (
     <div>
-
-    <Privacy/>
-
+      <Privacy />
     </div>
-
-  )
+  );
 }
 
-export default page
+export default page;

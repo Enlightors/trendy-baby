@@ -23,9 +23,9 @@ export default async function RootLayout({
   const T = {
     Home: t("Home"),
     About: t("About"),
-     Products: t("Products"),
+    Products: t("Products"),
     // Services: t("Services"),
-     Contact: t("Contact"),
+    Contact: t("Contact"),
   };
 
   return (

@@ -59,13 +59,17 @@ export default function Privacy() {
             You can request to correct any inaccurate information. Delete Your
             Information: You can request to delete your personal information,
             provided that this does not conflict with our legal obligations.
-            <br/><br/>
+            <br />
+            <br />
             Changes to This Privacy Policy: We reserve the right to modify this
             policy at any time. We will post any changes to this page.
           </p>
 
           <p className="font-bold">Contact Us:</p>
-          <p>If you have any questions about this policy, please contact us at sales@trendingbaby.com.</p>
+          <p>
+            If you have any questions about this policy, please contact us at
+            sales@trendingbaby.com.
+          </p>
         </div>
       </div>
     </div>

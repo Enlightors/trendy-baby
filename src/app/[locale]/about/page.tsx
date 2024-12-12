@@ -15,9 +15,9 @@ export default function page() {
         </div>
 
         <div className=" ">
-          <img src="/images/banner.png  " 
-         
-          className="w-[700px] h-[150px] md:w-[700px] md:h-[250px] object-cover"
+          <img
+            src="/images/banner.png  "
+            className="w-[700px] h-[150px] md:w-[700px] md:h-[250px] object-cover"
           />
         </div>
       </div>
@@ -77,20 +77,18 @@ export default function page() {
             </p>
           </div>
           <div className="flex flex-col  gap-y-2">
-           <p className="font-bold">Focusing on Quality and Safet</p>
-          <p className="max-w-[600px]">
-          At Trending Baby, we put your child's safety and security first. All
-          our products are designed according to the highest quality and safety
-          standards and undergo rigorous testing to ensure their safety. Our
-          mission is to provide a safe and comfortable environment for your
-          child, so they can grow and learn in a healthy environment.
-           </p>
-      </div>
+            <p className="font-bold">Focusing on Quality and Safet</p>
+            <p className="max-w-[600px]">
+              At Trending Baby, we put your child's safety and security first.
+              All our products are designed according to the highest quality and
+              safety standards and undergo rigorous testing to ensure their
+              safety. Our mission is to provide a safe and comfortable
+              environment for your child, so they can grow and learn in a
+              healthy environment.
+            </p>
+          </div>
         </div>
-
       </div>
-
-      
 
       <Productscom hasBackground={true} />
     </div>
