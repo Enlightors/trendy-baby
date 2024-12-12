@@ -43,7 +43,7 @@ export default function NavBar({ locale, T }: { locale: string; T: any }) {
       <div className="fixed top-0 w-full z-50 flex flex-col bg-[#00B1D5] h-[40px] items-center justify-center text-white">
         Make feeding your baby easier with TrendingBaby
       </div>
-      <div className="bg-white h-[60px] pt-[60px]  border-transparent border-b-[#fff] border-[2px] flex items-center  justify-between  px-2  md:px-20 pb-6">
+      <div className="bg-white h-[60px] pt-[60px] max-w-[90vw] lg:max-w-[80vw] mx-auto border-transparent border-b-[#fff] border-[2px] flex items-center  justify-between  px-2 pb-6">
         <div>
           <Link href={`/${locale}`} key="home">
             <Image

@@ -101,15 +101,15 @@ export default function TwoVideoSection() {
   };
 
   return (
-    <div className="flex flex-col gap-4 items-center justify-center lg:flex-row">
-      <div className="p-4 lg:p-14 w-full">
+    <div className="flex flex-col gap-4 items-center justify-center lg:flex-row max-w-[90vw] lg:max-w-[80vw] mx-auto">
+      <div className="w-full">
         <VideoPlayer
           src="https://utfs.io/f/KrRM7QSS9JrXSgaCJKVYCKNBRMtzkIXFdUo3j0y8cT1Zg46x"
           activeSrc={activeVideo.src}
           onPlay={handlePlay}
         />
       </div>
-      <div className="p-4 lg:p-14 w-full">
+      <div className="w-full">
         <VideoPlayer
           src="https://utfs.io/f/KrRM7QSS9JrXYbVEv3waLSUHnukyhDrp7vqOfjsziWwmXd40"
           activeSrc={activeVideo.src}

@@ -1,41 +1,42 @@
 import Aboutcom from "@/src/components/Aboutcom";
 import React from "react";
-import Link from "next/link";
 import Banner from "@/src/components/Banner";
 import Productscom from "@/src/components/Productscom";
-
+import Image from "next/image";
 export default function page() {
   return (
-    <div className="flex flex-col gap-y-4  ">
-      <div className=" flex  flex-col  md:flex-row w-full  h-[200px] md:h-[250px] bg-[#00B1D5] justify-between lg:justify-center  md:px-0 mx-auto  gap-x-24  ">
-        <div className="flex flex-col items-center justify-center">
-          <p className=" text-white text-2xl md:text-5xl  max-w-[400px] justify-center font-semibold md:mx-10 ">
-            Focusing On Parental Care
-          </p>
-        </div>
-
-        <div className=" ">
-          <img
-            src="/images/banner.png  "
-            className="w-[700px] h-[150px] md:w-[700px] md:h-[250px] object-cover"
-          />
+    <div className="flex flex-col">
+      <div className="bg-[#00B1D5] w-full">
+        <div className="flex flex-col md:flex-row w-full h-[200px] md:h-[350px] mx-auto max-w-[100vw] lg:max-w-[80vw] justify-between lg:justify-between md:px-0">
+          <div className="flex flex-col items-center justify-center">
+            <p className=" text-white text-2xl md:text-5xl py-4 lg:py-0 max-w-[400px] justify-center font-semibold md:mx-10 ">
+              Focusing On Parental Care
+            </p>
+          </div>
+          <div>
+            <Image
+              src="/images/banner.png"
+              className="w-[700px] h-[150px] md:w-[700px] md:h-[350px] object-cover"
+              width={700}
+              height={350}
+              alt="banner"
+            />
+          </div>
         </div>
       </div>
 
-      <div className="flex flex-col lg:flex-row items-center justify-between  lg:justify-center max-h-[700px]   md:px-0  gap-x-10  ">
-        <div className="flex flex-col  md:mx-10 px-[20px] md:px-0">
-          <div className="">
-            <img
-              src="/images/Trending-baby-logo.png"
-              alt="trendingbaby-logo"
-              width={200}
-              height={200}
-              className=" object-contain max-w-[500px]"
-            />
-          </div>
+      <div className="flex flex-col lg:flex-row items-center justify-between lg:justify-between max-h-[700px] w-full mx-auto max-w-[90vw] lg:max-w-[80vw]">
+        <div className="flex flex-col">
+          <img
+            src="/images/Trending-baby-logo.png"
+            alt="trendingbaby-logo"
+            width={200}
+            height={200}
+            className=" object-contain max-w-[500px]"
+          />
 
           <div>
-            <p className="  whitespace-normal pb-10  max-w-[460px] items-center ">
+            <p className="whitespace-normal pb-10 max-w-[460px] items-center">
               At Trending Baby, we are committed to providing a safe and
               comfortable environment for children. Since [Year of
               Establishment], we have been working hard to offer the latest
@@ -47,24 +48,26 @@ export default function page() {
           </div>
         </div>
 
-        <div className="">
-          <img
-            src="/images/trending-baby-17.png"
-            className="  md:w-[700px] max-h-[600px] object-contain"
-          />
-        </div>
+        <Image
+          src="/images/trending-baby-17.png"
+          className="md:w-[700px] max-h-[700px] object-contain"
+          width={700}
+          height={700}
+          alt="trendingbaby-logo"
+        />
       </div>
-
       <Banner />
-
-      <div className="flex flex-col lg:flex-row  justify-between lg:justify-center max-h-[700px] px-6 md:px-20  gap-x-10 pt-5 md:pb-0 ">
+      <div className="flex flex-col lg:flex-row justify-between w-full max-h-[700px] mx-auto max-w-[90vw] lg:max-w-[80vw] pt-5 md:pb-0 gap-x-10 ">
         <div className="pb-10 md:pb-0">
-          <img
+          <Image
             src="/images/trending-baby-15.jpg"
-            className="max-h-[700px] object-contain  md:max-w-[600px]"
+            className="max-h-[700px] object-contain md:max-w-[600px]"
+            width={600}
+            height={700}
+            alt="trendingbaby-logo"
           />
         </div>
-        <div className="flex flex-col   gap-y-2 ">
+        <div className="flex flex-col gap-y-2 w-full">
           <div className="flex flex-col gap-y-2">
             <p className="font-bold"> Focusing on Innovation and Growth</p>
             <p className=" whitespace-normal   max-w-[600px] ">
