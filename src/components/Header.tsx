@@ -17,8 +17,8 @@ export default function Header() {
         autoPlay
         loop
         muted={isMuted}
-        preload="auto"
         playsInline
+        controls={false}
       />
 
       <button

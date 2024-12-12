@@ -6,7 +6,7 @@ import Header from "@/src/components/Header";
 import Aboutcom from "@/src/components/Aboutcom";
 import Contacthome from "@/src/components/Contacthome";
 import Video2 from "@/src/components/Video2";
-import Swipercom from "@/src/components/swipercom";
+import Swipercom from "@/src/components/TwoVideoSection";
 import Banner from "@/src/components/Banner";
 import Productscom from "@/src/components/Productscom";
 
