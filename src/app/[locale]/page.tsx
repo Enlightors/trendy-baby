@@ -22,7 +22,6 @@ export default function Home() {
       <Banner />
       <Aboutcom />
 
-      <Video2 />
       <Swipercom />
       <Contacthome />
     </div>

@@ -24,33 +24,17 @@ const productData: Product[] = [
     videoSrc: "/videos/trending-baby-3.mp4",
     name: "Wavy Video Baby Monitor",
   },
-  {
-    id: 3,
-    videoSrc: "/videos/trending-baby-3.mp4",
-    name: "Mono Full HD Video Baby Monitor",
-  },
-  { id: 4, videoSrc: "/videos/trending-baby-3.mp4", name: "Baby Crib" },
-  {
-    id: 5,
-    videoSrc: "/videos/trending-baby-3.mp4",
-    name: "Advanced Baby Formula",
-  },
-  {
-    id: 6,
-    videoSrc: "/videos/trending-baby-3.mp4",
-    name: "One Step Baby Food Maker",
-  },
 ];
 
-interface ProductscomProps {
+interface SwipercomProps {
   filter?: number[];
   isPopover?: boolean;
 }
 
-export default function Productscom({
+export default function Swipercom({
   filter = [],
   isPopover = false,
-}: ProductscomProps) {
+}: SwipercomProps) {
   const swiperRef = useRef<SwiperCore | null>(null);
   const [playingVideoId, setPlayingVideoId] = useState<number | null>(null);
 

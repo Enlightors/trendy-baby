@@ -10,10 +10,10 @@ export default function Header() {
   };
 
   return (
-    <div className="relative h-[250px] md:h-[600px] overflow-hidden">
+    <div className="relative overflow-hidden h-[calc(100vh-90px)]">
       <video
-        className="absolute md:top-0 md:left md:right  w-full h-[40hv] md:w-full md:h-[110vh] object-cover  "
-        src="/videos/trending-baby-1.mp4"
+        className="absolute md:top-0 md:left md:right aspect-video h-[calc(100vh-90px)] w-full md:w-full object-cover"
+        src="https://utfs.io/f/KrRM7QSS9JrXSgaCJKVYCKNBRMtzkIXFdUo3j0y8cT1Zg46x"
         autoPlay
         loop
         muted={isMuted}
@@ -23,12 +23,12 @@ export default function Header() {
 
       <button
         onClick={toggleMute}
-        className="absolute   bottom-10 left-2 md:bottom-20 md:left-6 bg-black  p-1 md:p-2 rounded-full shadow-lg opacity-75 hover:opacity-100 transition-opacity duration-300"
+        className="absolute bottom-4 left-4 md:bottom-6 md:left-6 bg-black  p-1 md:p-2 rounded-full shadow-lg opacity-75 hover:opacity-100 transition-opacity duration-300"
       >
         {isMuted ? (
-          <img src="/images/sound-off.svg" alt="Muted" className="w-6 h-6" />
+          <img src="/images/Sound-off.svg" alt="Muted" className="w-6 h-6" />
         ) : (
-          <img src="/images/sound-on.svg" alt="Sound On" className="w-6 h-6" />
+          <img src="/images/Sound-on.svg" alt="Sound On" className="w-6 h-6" />
         )}
       </button>
     </div>

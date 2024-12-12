@@ -69,7 +69,7 @@ export default function NavBar({ locale, T }: { locale: string; T: any }) {
                     onMouseEnter={() => setPopoverOpen(true)}
                     onMouseLeave={() => setPopoverOpen(false)}
                     onClick={() => router.push(`/${locale}${page.path}`)}
-                    className={`px-[20px] cursor-pointer  justify-center items-center flex flex-col h-[50px]   ${
+                    className={`px-[20px] cursor-pointer justify-center items-center flex flex-col h-[50px]  ${
                       path === `/${locale}${page.path}`
                         ? "border-transparent border-[2px]"
                         : ""
