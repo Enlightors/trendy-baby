@@ -29,7 +29,7 @@ export const categoriesData: Categories[] = [
   },
   {
     id: 3,
-    name: "Car Seats",
+    name: "Strollers",
   },
 ];
 
