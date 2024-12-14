@@ -15,7 +15,7 @@ export default function page() {
           </div>
           <div>
             <Image
-              src="/images/banner.png"
+              src="/images/Banner.png"
               className="w-[700px] h-[150px] md:w-[700px] md:h-[350px] object-cover"
               width={700}
               height={350}

@@ -18,6 +18,20 @@ export interface Categories {
   id: number;
   name: string;
 }
+export const categoriesData: Categories[] = [
+  {
+    id: 1,
+    name: "Devices",
+  },
+  {
+    id: 2,
+    name: "Furniture",
+  },
+  {
+    id: 3,
+    name: "Car Seats",
+  },
+];
 
 export const productData: Products[] = [
   {
@@ -121,7 +135,7 @@ export const productData: Products[] = [
     imageSrc: "/images/Baby Strollers.png",
     name: "Baby Strollers",
     featured: true,
-    category_id: 2,
+    category_id: 3,
     description: "Baby Strollers",
     Brand: "Trending Baby",
   },
@@ -139,23 +153,99 @@ export const productData: Products[] = [
     imageSrc: "/images/15.png",
     name: "Baby Carrycot",
     featured: true,
-    category_id: 3,
+    category_id: 2,
     description: "Baby Carrycot",
     Brand: "Trending Baby",
   },
-];
-
-export const categoriesData: Categories[] = [
   {
-    id: 1,
-    name: "Devices",
-  },
-  {
-    id: 2,
+    id: 7,
+    imageSrc: "/images/5.png",
     name: "Furniture",
+    featured: false,
+    category_id: 2,
+    description: "Furniture",
+    Brand: "Trending Baby",
   },
   {
-    id: 3,
-    name: "Car Seats",
+    id: 8,
+    imageSrc: "/images/6.png",
+    name: "Furniture",
+    featured: false,
+    category_id: 2,
+    description: "Furniture",
+    Brand: "Trending Baby",
+  },
+  {
+    id: 9,
+    imageSrc: "/images/7.png",
+    name: "Furniture",
+    featured: false,
+    category_id: 2,
+    description: "Furniture",
+    Brand: "Trending Baby",
+  },
+  {
+    id: 10,
+    imageSrc: "/images/8.png",
+    name: "Furniture",
+    featured: false,
+    category_id: 2,
+    description: "Furniture",
+    Brand: "Trending Baby",
+  },
+  {
+    id: 11,
+    imageSrc: "/images/10.png",
+    name: "Furniture",
+    featured: false,
+    category_id: 2,
+    description: "Furniture",
+    Brand: "Trending Baby",
+  },
+  {
+    id: 12,
+    imageSrc: "/images/11.png",
+    name: "Furniture",
+    featured: false,
+    category_id: 2,
+    description: "Furniture",
+    Brand: "Trending Baby",
+  },
+  {
+    id: 13,
+    imageSrc: "/images/12.png",
+    name: "Furniture",
+    featured: false,
+    category_id: 2,
+    description: "Furniture",
+    Brand: "Trending Baby",
+  },
+  {
+    id: 14,
+    imageSrc: "/images/13.png",
+    name: "Furniture",
+    featured: false,
+    category_id: 2,
+    description: "Furniture",
+    Brand: "Trending Baby",
+  },
+  {
+    id: 15,
+    imageSrc: "/images/14.png",
+    name: "Furniture",
+    featured: false,
+    category_id: 2,
+    description: "Furniture",
+    Brand: "Trending Baby",
+  },
+
+  {
+    id: 17,
+    imageSrc: "/images/16.png",
+    name: "Furniture",
+    featured: false,
+    category_id: 2,
+    description: "Furniture",
+    Brand: "Trending Baby",
   },
 ];
