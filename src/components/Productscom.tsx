@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import Link from "next/link";
 import { productData, Products } from "@/lib/products";
@@ -6,7 +7,7 @@ interface ProductscomProps {
   filter?: number[];
   isPopover?: boolean;
   hasBackground?: boolean; // Add this prop
-  setPopoverOpen?: (open: boolean) => void;
+  setPopoverOpen?: any;
 }
 
 export default function Productscom({
