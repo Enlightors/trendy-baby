@@ -243,7 +243,7 @@ export default function Page({ params: { id } }: { params: { id: string } }) {
                 alt={product.name}
                 width={500}
                 height={500}
-                className="w-full h-auto"
+                className="w-full h-auto bg-white"
               />
             </div>
             <div className="order-2 col-span-1 rounded-lg md:order-last md:col-span-2">
