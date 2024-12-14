@@ -40,88 +40,92 @@ export default function NavBar({ locale, T }: { locale: string; T: any }) {
 
   return (
     <>
-      <div className="fixed top-0 w-full z-50 flex flex-col bg-[#00B1D5] h-[40px] items-center justify-center text-white">
+      <div className="w-full z-50 flex flex-col bg-[#00B1D5] h-[40px] items-center justify-center text-white">
         Make feeding your baby easier with TrendingBaby
       </div>
-      <div className="bg-white h-[60px] pt-[60px] max-w-[90vw] lg:max-w-[80vw] mx-auto border-transparent border-b-[#fff] border-[2px] flex items-center  justify-between  px-2 pb-6">
-        <div>
-          <Link href={`/${locale}`} key="home">
-            <Image
-              src="/images/Trending-baby-logo.png"
-              loading="lazy"
-              width={170}
-              height={170}
-              alt="Logo"
-            />
-          </Link>
-        </div>
+      <div className="sticky top-0 z-10 bg-white">
+        <div className="bg-white h-[60px] max-w-[90vw] lg:max-w-[80vw] mx-auto border-transparent border-b-[#fff] border-[2px] flex items-center  justify-between  px-2 ">
+          <div>
+            <Link href={`/${locale}`} key="home">
+              <Image
+                src="/images/Trending-baby-logo.png"
+                loading="lazy"
+                width={170}
+                height={170}
+                alt="Logo"
+              />
+            </Link>
+          </div>
 
-        <div className="items-center gap-x-[10px] hidden md:flex justify-between">
-          {Pages.map((page) =>
-            page.name === "Products" ? (
-              <Popover
-                key={page.name}
-                open={popoverOpen}
-                onOpenChange={(open) => setPopoverOpen(open)}
-              >
-                <PopoverTrigger asChild>
-                  <div
-                    onMouseEnter={() => setPopoverOpen(true)}
-                    onMouseLeave={() => setPopoverOpen(false)}
-                    onClick={() => router.push(`/${locale}${page.path}`)}
-                    className={`px-[20px] cursor-pointer justify-center items-center flex flex-col h-[50px]  ${
-                      path === `/${locale}${page.path}`
-                        ? "border-transparent border-[2px]"
-                        : ""
-                    }`}
-                  >
-                    <p
-                      className={`text-black  hover:text-[#26A2BE] ${
-                        locale === "en" && "first-letter:uppercase"
+          <div className="items-center gap-x-[10px] hidden md:flex justify-between">
+            {Pages.map((page) =>
+              page.name === "Products" ? (
+                <Popover
+                  key={page.name}
+                  open={popoverOpen}
+                  onOpenChange={(open) => setPopoverOpen(open)}
+                >
+                  <PopoverTrigger asChild>
+                    <div
+                      onMouseEnter={() => setPopoverOpen(true)}
+                      onMouseLeave={() => setPopoverOpen(false)}
+                      onClick={() => router.push(`/${locale}${page.path}`)}
+                      className={`px-[20px] cursor-pointer justify-center items-center flex flex-col h-[50px]  ${
+                        path === `/${locale}${page.path}`
+                          ? "border-transparent border-[2px]"
+                          : ""
                       }`}
                     >
-                      {T[page.name]}
-                    </p>
-                  </div>
-                </PopoverTrigger>
-                <PopoverContent
-                  onMouseEnter={() => setPopoverOpen(true)}
-                  onMouseLeave={() => setPopoverOpen(false)}
+                      <p
+                        className={`text-black  hover:text-[#26A2BE] ${
+                          locale === "en" && "first-letter:uppercase"
+                        }`}
+                      >
+                        {T[page.name]}
+                      </p>
+                    </div>
+                  </PopoverTrigger>
+                  <PopoverContent
+                    onMouseEnter={() => setPopoverOpen(true)}
+                    onMouseLeave={() => setPopoverOpen(false)}
+                  >
+                    <Productscom
+                      isPopover={true}
+                      setPopoverOpen={setPopoverOpen}
+                    />
+                  </PopoverContent>
+                </Popover>
+              ) : (
+                <Link
+                  className={`px-[20px] ${
+                    path === `/${locale}${page.path}` ||
+                    (path === `/${locale}` && page.path === "/")
+                      ? "border-transparent border-[2px]"
+                      : ""
+                  } cursor-pointer justify-center items-center flex flex-col h-[80px]`}
+                  href={`/${locale}${page.path}`}
+                  key={page.name}
                 >
-                  <Productscom isPopover={true} />
-                </PopoverContent>
-              </Popover>
-            ) : (
-              <Link
-                className={`px-[20px] ${
-                  path === `/${locale}${page.path}` ||
-                  (path === `/${locale}` && page.path === "/")
-                    ? "border-transparent border-[2px]"
-                    : ""
-                } cursor-pointer justify-center items-center flex flex-col h-[80px]`}
-                href={`/${locale}${page.path}`}
-                key={page.name}
-              >
-                <p
-                  className={`text-black hover:text-[#26A2BE] ${
-                    locale === "en" && "first-letter:uppercase"
-                  }`}
-                >
-                  {T[page.name]}
-                </p>
-              </Link>
-            )
-          )}
-        </div>
+                  <p
+                    className={`text-black hover:text-[#26A2BE] ${
+                      locale === "en" && "first-letter:uppercase"
+                    }`}
+                  >
+                    {T[page.name]}
+                  </p>
+                </Link>
+              )
+            )}
+          </div>
 
-        <div className="md:hidden cursor-pointer  ">
-          <IoMenu
-            className="text-black text-4xl"
-            onClick={() => setMobileMenu(!MobileMenu)}
-          />
+          <div className="md:hidden cursor-pointer  ">
+            <IoMenu
+              className="text-black text-4xl"
+              onClick={() => setMobileMenu(!MobileMenu)}
+            />
+          </div>
         </div>
       </div>
-
       <div className="md:hidden">
         <div
           className={`${

@@ -6,12 +6,14 @@ interface ProductscomProps {
   filter?: number[];
   isPopover?: boolean;
   hasBackground?: boolean; // Add this prop
+  setPopoverOpen?: (open: boolean) => void;
 }
 
 export default function Productscom({
   filter = [],
   isPopover = false,
   hasBackground = false,
+  setPopoverOpen,
 }: ProductscomProps) {
   const filteredProducts = productData
     .filter((product: Products) => !filter.includes(product.id))
@@ -28,7 +30,13 @@ export default function Productscom({
           key={product.id}
           className="flex flex-col items-center justify-center"
         >
-          <Link href={`/products/${product.id}`} className="text-center">
+          <Link
+            onClick={() => {
+              setPopoverOpen && setPopoverOpen(false);
+            }}
+            href={`/products/${product.id}`}
+            className="text-center"
+          >
             <div className="max-h-[200px] h-[150px] flex items-center justify-center">
               <img
                 className="h-[150px] object-contain"
