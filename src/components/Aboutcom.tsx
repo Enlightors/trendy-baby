@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function Aboutcom() {
   return (
@@ -34,9 +35,13 @@ export default function Aboutcom() {
       </div>
 
       <div className="">
-        <img
-          src="/images/trending-baby-15.jpg"
+        <Image
+          src="/images/Trending-baby-About-Image.jpg"
           className="md:max-w-[560px] max-h-[500px] object-contain"
+          width={1920}
+          height={1080}
+          alt="trendingbaby-logo"
+          priority={true}
         />
       </div>
     </div>

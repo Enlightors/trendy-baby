@@ -20,6 +20,7 @@ export default function page() {
               width={700}
               height={350}
               alt="banner"
+              priority={true}
             />
           </div>
         </div>
@@ -54,6 +55,7 @@ export default function page() {
           width={700}
           height={700}
           alt="trendingbaby-logo"
+          priority={true}
         />
       </div>
       <Banner />
