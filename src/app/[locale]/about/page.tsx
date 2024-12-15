@@ -9,14 +9,16 @@ export default function page() {
       <div className="bg-[#00B1D5] w-full">
         <div className="flex flex-col md:flex-row w-full h-[200px] md:h-[350px] mx-auto max-w-[100vw] lg:max-w-[80vw] justify-between lg:justify-between md:px-0">
           <div className="flex flex-col items-center justify-center">
-            <p className=" text-white text-2xl md:text-5xl py-4 lg:py-0 max-w-[400px] justify-center font-semibold md:mx-10 ">
+            <p className=" text-white text-2xl md:text-5xl py-4 lg:py-0  justify-center font-semibold ">
               Focusing On Parental Care
             </p>
           </div>
           <div>
             <Image
-              src="/images/Banner.png"
-              className="w-[700px] h-[150px] md:w-[700px] md:h-[350px] object-cover"
+              src="/images/about_banner_bg.jpg"
+              // /  flip horizzontally
+              style={{ transform: "scaleX(-1)" }}
+              className="w-[700px] h-[150px] md:w-[700px] md:h-[350px] object-cover "
               width={700}
               height={350}
               alt="banner"
@@ -50,7 +52,7 @@ export default function page() {
         </div>
 
         <Image
-          src="/images/trending-baby-17.png"
+          src="/images/Trending-baby-About-Image.jpg"
           className="md:w-[700px] max-h-[700px] object-contain"
           width={700}
           height={700}

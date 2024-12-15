@@ -37,7 +37,7 @@ export default function Aboutcom() {
       <div className="">
         <Image
           src="/images/Trending-baby-About-Image.jpg"
-          className="md:max-w-[560px] max-h-[500px] object-contain"
+          className="md:max-w-[700px] max-h-[700px] object-contain"
           width={1920}
           height={1080}
           alt="trendingbaby-logo"
