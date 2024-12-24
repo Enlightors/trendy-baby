@@ -4,8 +4,8 @@ import Image from "next/image";
 
 export default function Aboutcom() {
   return (
-    <div className="flex flex-col md:flex-row max-h-[700px] max-w-[90vw] lg:max-w-[80vw] pb-10 pt-2 md:pt-10 mx-auto gap-x-20 items-center justify-between">
-      <div className="flex flex-col justify-center lg:justify-between">
+    <div className="flex flex-col md:flex-row max-h-[700px] max-w-[90vw] lg:max-w-[80vw] pb-10 pt-2 md:pt-10 mx-auto gap-x-2 items-center justify-between">
+      <div className="flex flex-col lg:w-1/2 lg:max-w-1/2 justify-center lg:justify-between">
         <div className=" flex justify-center md:justify-normal">
           <img
             src="/images/Trending-baby-logo.png"
@@ -34,10 +34,10 @@ export default function Aboutcom() {
         </div>
       </div>
 
-      <div className="">
+      <div className="lg:w-1/2 lg:max-w-1/2">
         <Image
           src="/images/Trending-baby-About-Image.jpg"
-          className="md:max-w-[700px] max-h-[700px] object-contain"
+          className="lg:max-w-full w-full max-h-[700px] object-contain"
           width={1920}
           height={1080}
           alt="trendingbaby-logo"

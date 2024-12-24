@@ -7,23 +7,11 @@ export default function page() {
   return (
     <div className="flex flex-col">
       <div className="bg-[#00B1D5] w-full">
-        <div className="flex flex-col md:flex-row w-full h-[200px] md:h-[350px] mx-auto max-w-[100vw] lg:max-w-[80vw] justify-between lg:justify-between md:px-0">
+        <div className="flex flex-col md:flex-row w-full h-[120px] md:h-[120px] mx-auto max-w-[100vw] lg:max-w-[80vw] justify-between lg:justify-between md:px-0">
           <div className="flex flex-col items-center justify-center">
             <p className=" text-white text-2xl md:text-5xl py-4 lg:py-0  justify-center font-semibold ">
               Focusing On Parental Care
             </p>
-          </div>
-          <div>
-            <Image
-              src="/images/about_banner_bg.jpg"
-              // /  flip horizzontally
-              style={{ transform: "scaleX(-1)" }}
-              className="w-[700px] h-[150px] md:w-[700px] md:h-[350px] object-cover "
-              width={700}
-              height={350}
-              alt="banner"
-              priority={true}
-            />
           </div>
         </div>
       </div>
@@ -41,12 +29,11 @@ export default function page() {
           <div>
             <p className="whitespace-normal pb-10 max-w-[460px] items-center">
               At Trending Baby, we are committed to providing a safe and
-              comfortable environment for children. Since [Year of
-              Establishment], we have been working hard to offer the latest
-              technology and the best products to meet the needs of parents. Our
-              mission is to help you provide the best care for your children by
-              offering high-quality products designed specifically for
-              childhood.
+              comfortable environment for children. Since 2022, we have been
+              working hard to offer the latest technology and the best products
+              to meet the needs of parents. Our mission is to help you provide
+              the best care for your children by offering high-quality products
+              designed specifically for childhood.
             </p>
           </div>
         </div>
