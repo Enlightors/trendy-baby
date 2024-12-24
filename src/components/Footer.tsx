@@ -35,18 +35,12 @@ export default function Footer({ locale }: any) {
           <h1 className="font-medium text-xl"> Follow us on Social Media</h1>
           <div className="flex flex-row gap-x-2">
             <span className="bg-[#ecf0f3] rounded-full h-[25px] w-[25px] flex items-center justify-center">
-              <a
-                href="https://www.instagram.com/trending.babybh/profilecard/?igsh=MW5za2E4bDl4MmMzMQ=="
-                target="_blank"
-                rel="noreferrer"
-              >
+              <a href="#" target="_blank" rel="noreferrer">
                 <FaInstagram color="#5ac5f1" />
               </a>
             </span>
             <div>
-              <a href="https://www.instagram.com/trending.babybh/profilecard/?igsh=MW5za2E4bDl4MmMzMQ%3D%3D">
-                Instagram
-              </a>
+              <a href="#">Instagram</a>
             </div>
           </div>
           <div className="flex flex-row gap-x-2">

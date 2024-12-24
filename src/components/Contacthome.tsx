@@ -1,33 +1,64 @@
 "use client";
 
-import { useState, FormEvent } from "react";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+
+const formSchema = z.object({
+  name: z.string().min(2, "Name must be at least 2 characters"),
+  email: z.string().email("Please enter a valid email address"),
+  phone: z
+    .string()
+    .min(10, "Please enter a valid phone number")
+    .regex(/^\d+$/, "Phone number must contain only digits"),
+  product: z.string().min(1, "Please select a product"),
+  message: z.string().min(10, "Message must be at least 10 characters"),
+});
+
+type FormData = z.infer<typeof formSchema>;
 
 export default function ContactForm() {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    product: "",
-    message: "",
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm<FormData>({
+    resolver: zodResolver(formSchema),
   });
 
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    console.log("Form submitted:", formData);
+  const onSubmit = (data: FormData) => {
+    const subject = `Contact Form Submission - ${data.product}`;
+    const body = `
+Name: ${data.name}
+Email: ${data.email}
+Phone: ${data.phone}
+Product: ${data.product}
+
+Message:
+${data.message}
+    `;
+
+    window.location.href = `mailto:sales@trendingbaby.com?subject=${encodeURIComponent(
+      subject
+    )}&body=${encodeURIComponent(body)}`;
+
+    reset();
   };
 
   return (
-    <div className="md:pt-14">
+    <div className="md:pt-8">
       <div
-        className="py-12 bg-cover bg-center"
+        className="py-8 bg-cover bg-center"
         style={{ backgroundImage: "url('/images/trending-baby-12.png')" }}
       >
-        <div className="container mx-auto max-w-xl bg-[#00B1D5] px-6 py-2 rounded-lg shadow-lg">
-          <h1 className="text-3xl font-bold text-center text-white mb-8">
+        <div className="container mx-auto max-w-xl bg-[#00B1D5] px-6 py-6 rounded-lg shadow-lg">
+          <h1 className="text-3xl font-bold text-center text-white mb-6">
             CONTACT US
           </h1>
 
-          <div className="space-y-2 text-gray-100 mb-8">
+          <div className="space-y-2 text-gray-100 mb-6">
             <p>
               Our number 1 goal is your satisfaction. Our customer service team
               is available to help you through the following channels:{" "}
@@ -37,115 +68,132 @@ export default function ContactForm() {
               >
                 Help Center
               </a>
-              , Contact Form or E-mail: trendingbaby@gmail.com
+              , Contact Form or E-mail: sales@trendingbaby.com
             </p>
           </div>
 
-          <form onSubmit={handleSubmit} className="grid grid-cols-2 gap-x-4">
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            className="grid grid-cols-2 gap-4"
+          >
             <div className="col-span-2 sm:col-span-1">
               <label
                 htmlFor="name"
-                className="block text-sm font-medium text-gray-100"
+                className="block text-sm font-medium text-gray-100 mb-1"
               >
                 Name
               </label>
               <input
                 type="text"
                 id="name"
-                className="mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
-                value={formData.name}
-                onChange={(e) =>
-                  setFormData({ ...formData, name: e.target.value })
-                }
-                required
+                placeholder="Enter your name"
+                className="w-full h-10 px-4 rounded-md border border-gray-300 bg-white text-gray-900 outline-none"
+                {...register("name")}
               />
+              {errors.name && (
+                <p className="mt-1 text-sm text-white">{errors.name.message}</p>
+              )}
             </div>
 
             <div className="col-span-2 sm:col-span-1">
               <label
                 htmlFor="email"
-                className="block text-sm font-medium text-gray-100"
+                className="block text-sm font-medium text-gray-100 mb-1"
               >
                 Email
               </label>
               <input
                 type="email"
                 id="email"
-                className="mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
-                value={formData.email}
-                onChange={(e) =>
-                  setFormData({ ...formData, email: e.target.value })
-                }
-                required
+                placeholder="Enter your email"
+                className="w-full h-10 px-4 rounded-md border border-gray-300 bg-white text-gray-900 outline-none"
+                {...register("email")}
               />
+              {errors.email && (
+                <p className="mt-1 text-sm text-white">
+                  {errors.email.message}
+                </p>
+              )}
             </div>
 
             <div className="col-span-2 sm:col-span-1">
               <label
                 htmlFor="phone"
-                className="block text-sm font-medium text-gray-100"
+                className="block text-sm font-medium text-gray-100 mb-1"
               >
                 Phone number
               </label>
               <input
                 type="tel"
                 id="phone"
-                className="mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
-                value={formData.phone}
-                onChange={(e) =>
-                  setFormData({ ...formData, phone: e.target.value })
-                }
-                required
+                placeholder="964 770 000 0000"
+                pattern="[0-9]*"
+                inputMode="numeric"
+                className="w-full h-10 px-4 rounded-md border border-gray-300 bg-white text-gray-900 outline-none"
+                {...register("phone")}
               />
+              {errors.phone && (
+                <p className="mt-1 text-sm text-white">
+                  {errors.phone.message}
+                </p>
+              )}
             </div>
 
             <div className="col-span-2 sm:col-span-1">
               <label
                 htmlFor="product"
-                className="block text-sm font-medium text-gray-100"
+                className="block text-sm font-medium text-gray-100 mb-1"
               >
                 Product
               </label>
               <select
                 id="product"
-                className="mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
-                value={formData.product}
-                onChange={(e) =>
-                  setFormData({ ...formData, product: e.target.value })
-                }
-                required
+                className="w-full h-10 px-4 rounded-md border border-gray-300 bg-white text-gray-900 outline-none"
+                {...register("product")}
               >
                 <option value="">Please Select</option>
-                <option value="product1">Product 1</option>
-                <option value="product2">Product 2</option>
-                <option value="product3">Product 3</option>
+                <option value="Smart Formula Milk Maker O5">
+                  Smart Formula Milk Maker O5
+                </option>
+                <option value="Wavy Video Baby Monitor">
+                  Wavy Video Baby Monitor
+                </option>
+                <option value="Mono Full HD Video Baby Monitor">
+                  Mono Full HD Video Baby Monitor
+                </option>
                 <option value="other">Other</option>
               </select>
+              {errors.product && (
+                <p className="mt-1 text-sm text-white">
+                  {errors.product.message}
+                </p>
+              )}
             </div>
 
             <div className="col-span-2">
               <label
                 htmlFor="message"
-                className="block text-sm font-medium text-gray-100"
+                className="block text-sm font-medium text-gray-100 mb-1"
               >
                 Message
               </label>
               <textarea
                 id="message"
-                rows={6}
-                className="mt-1 w-full h-[100px] rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
-                value={formData.message}
-                onChange={(e) =>
-                  setFormData({ ...formData, message: e.target.value })
-                }
-                required
+                placeholder="Enter your message"
+                className="w-full h-24 px-4 py-2 rounded-md border border-gray-300 bg-white text-gray-900 outline-none resize-none"
+                {...register("message")}
               ></textarea>
+              {errors.message && (
+                <p className="mt-1 text-sm text-white">
+                  {errors.message.message}
+                </p>
+              )}
             </div>
 
-            <div className="col-span-2 flex justify-end">
+            <div className="col-span-2 flex justify-end mt-4">
               <button
                 type="submit"
-                className="px-6 py-2 bg-[#2D617B] text-white rounded-md hover:bg-white focus:outline-none focus:ring-2 focus:ring-[#2D617B] focus:ring-offset-2 hover:text-[#2D617B]"
+                className="px-6 py-2 bg-[#2D617B] text-white rounded-md hover:bg-white hover:text-[#2D617B] transition-colors duration-200"
               >
                 SEND
               </button>

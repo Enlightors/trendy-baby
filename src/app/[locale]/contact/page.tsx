@@ -10,4 +10,3 @@ export default function page({}: Props) {
     </div>
   );
 }
-page;

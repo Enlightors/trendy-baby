@@ -30,7 +30,7 @@ const iconData: Icon[] = [
   {
     id: 4,
     img: "/images/trending-baby-banner-6.png",
-    desc: "Official distributor Bahrain and baghdad ",
+    desc: "Official distributor",
   },
 ];
 
