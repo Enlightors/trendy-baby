@@ -54,7 +54,25 @@ interface Product {
   } | null;
 }
 
-export default function Products({ products }: { products: Product[] }) {
+interface Brand {
+  id: number;
+  name: string;
+}
+
+interface Category {
+  id: number;
+  name: string;
+}
+
+export default function Products({
+  products,
+  brands,
+  categories,
+}: {
+  products: Product[];
+  brands: Brand[];
+  categories: Category[];
+}) {
   const [isAddOpen, setIsAddOpen] = useState(false);
   const [isEditOpen, setIsEditOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
@@ -97,7 +115,8 @@ export default function Products({ products }: { products: Product[] }) {
 
   return (
     <div className="space-y-4">
-      <div className="flex justify-end">
+      <div className="flex justify-between items-center">
+        <h1 className="text-2xl font-bold mb-6">Products</h1>
         <Dialog open={isAddOpen} onOpenChange={setIsAddOpen}>
           <DialogTrigger asChild>
             <Button>Add Product</Button>
@@ -136,16 +155,14 @@ export default function Products({ products }: { products: Product[] }) {
                       <SelectValue placeholder="Select category" />
                     </SelectTrigger>
                     <SelectContent>
-                      {Array.from(new Set(products.map((p) => p.category))).map(
-                        (category) => (
-                          <SelectItem
-                            key={category.id}
-                            value={category.id.toString()}
-                          >
-                            {category.name}
-                          </SelectItem>
-                        )
-                      )}
+                      {categories.map((category) => (
+                        <SelectItem
+                          key={category.id}
+                          value={category.id.toString()}
+                        >
+                          {category.name}
+                        </SelectItem>
+                      ))}
                     </SelectContent>
                   </Select>
                 </div>
@@ -156,14 +173,9 @@ export default function Products({ products }: { products: Product[] }) {
                       <SelectValue placeholder="Select brand" />
                     </SelectTrigger>
                     <SelectContent>
-                      {Array.from(
-                        new Set(products.map((p) => p.brand).filter(Boolean))
-                      ).map((brand) => (
-                        <SelectItem
-                          key={brand!.id}
-                          value={brand!.id.toString()}
-                        >
-                          {brand!.name}
+                      {brands.map((brand) => (
+                        <SelectItem key={brand.id} value={brand.id.toString()}>
+                          {brand.name}
                         </SelectItem>
                       ))}
                     </SelectContent>

@@ -12,10 +12,11 @@ export default async function page() {
       brand: true,
     },
   });
+  const brands = await prisma.brand.findMany();
+  const categories = await prisma.category.findMany();
   return (
     <div className="p-8">
-      <h1 className="text-2xl font-bold mb-6">Products</h1>
-      <Products products={products} />
+      <Products products={products} brands={brands} categories={categories} />
     </div>
   );
 }
