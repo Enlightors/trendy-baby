@@ -15,13 +15,13 @@ export default function Productspage() {
       <p className="text-center text-[#2D617B] text-3xl sm:text-3xl md:text-4xl font-semibold lg:text-4xl pb-4 pt-[70px] ">
         Make feeding your baby easier with TrendingBaby
       </p>
-      {/* Change to grid layout */}
-      {/* /// Map categopries for each one show products */}
       {categoriesData.map((categories: Categories) => (
         <div key={categories.id}>
-          <p className="text-[#2D617B] text-3xl sm:text-3xl md:text-4xl font-semibold lg:text-4xl pb-4 pt-[70px] ">
-            {categories.name}
-          </p>
+          <div className="flex flex-col items-center justify-center my-8">
+            <p className="text-white bg-[#00B1D5] px-14 rounded-full py-1 text-3xl md:text-3xl font-semibold lg:text-3xl">
+              {categories.name}
+            </p>
+          </div>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-10 my-[30px] items-center justify-center px-[40px]">
             {productData
               .filter(
