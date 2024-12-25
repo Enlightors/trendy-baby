@@ -19,3 +19,27 @@ model User {
   email    String  @unique
   password String
 }
+
+model Product {
+  id          Int      @id @default(autoincrement())
+  imageSrc    String
+  name        String
+  featured    Boolean
+  category_id Int
+  description String
+  brandId     Int?
+  category    Category @relation(fields: [category_id], references: [id])
+  brand       Brand?   @relation(fields: [brandId], references: [id])
+}
+
+model Category {
+  id      Int       @id @default(autoincrement())
+  name    String
+  Product Product[]
+}
+
+model Brand {
+  id      Int       @id @default(autoincrement())
+  name    String
+  Product Product[]
+}
