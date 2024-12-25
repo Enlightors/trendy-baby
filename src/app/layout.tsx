@@ -1,5 +1,6 @@
 import { ReactNode } from "react";
 import "./globals.css";
+import { SessionProvider } from "next-auth/react";
 
 import type { Metadata } from "next";
 
@@ -17,7 +18,7 @@ type Props = {
 export default function RootLayout({ children }: Props) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <SessionProvider>{children}</SessionProvider>
     </html>
   );
 }
