@@ -5,10 +5,16 @@ export default createMiddleware({
   defaultLocale: "en",
   localeDetection: false,
   // Skip locale prefix for Admin routes
-  
+  localePrefix: {
+    mode: "as-needed",
+    prefixes: {
+      en: "",
+      ar: "ar",
+    },
+  },
 });
 
 export const config = {
   // Skip all paths that should not be internationalized
-  matcher: ["/((?!api|_next|.*\\..*).*)"],
+  matcher: ["/((?!api|_next|.*\\..*|admin).*)"],
 };
