@@ -18,7 +18,7 @@ import { Session } from "next-auth";
 const items = [
   {
     title: "Home",
-    url: "#",
+    url: "/Admin",
     icon: Home,
   },
   {
