@@ -1,5 +1,4 @@
 import localFont from "next/font/local";
-import { getTranslations } from "next-intl/server";
 import Navbar from "@/src/components/Navbar";
 import Footer from "@/src/components/Footer";
 import { prisma } from "@/lib/prisma";
@@ -20,15 +19,6 @@ export default async function RootLayout({
   children: React.ReactNode;
   params: { locale: string };
 }) {
-  const t = await getTranslations("Trans");
-  const T = {
-    Home: t("Home"),
-    About: t("About"),
-    Products: t("Products"),
-    // Services: t("Services"),
-    Contact: t("Contact"),
-  };
-
   const FeaturedProducts = await prisma.product.findMany({
     where: {
       featured: true,
