@@ -4,7 +4,6 @@ import { getServerSession } from "next-auth";
 import { prisma } from "@/lib/prisma";
 import { authOptions } from "@/auth";
 import { revalidatePath } from "next/cache";
-import Upload from "@/lib/upload";
 
 export async function createProduct(formData: FormData) {
   const session = await getServerSession(authOptions);
@@ -21,12 +20,7 @@ export async function createProduct(formData: FormData) {
     : null;
 
   // Handle image upload
-  const image = formData.get("image") as File;
-  let imageSrc = "";
-  if (image) {
-    // @ts-expect-error - Multer is not compatible with Next.js
-    imageSrc = await Upload("storage", image, image.name);
-  }
+  const imageSrc = formData.get("imageSrc") as string;
 
   const colors = formData.getAll("colors[]").map((color) => color.toString());
 
@@ -73,14 +67,7 @@ export async function updateProduct(productId: number, formData: FormData) {
     ? parseInt(formData.get("brandId") as string)
     : null;
 
-  // Handle image upload if a new image is provided
-  const image = formData.get("image") as File;
-  let imageSrc = undefined; // undefined means no image update
-  if (image && image.size > 0) {
-    // @ts-expect-error - Multer is not compatible with Next.js
-    imageSrc = await Upload("storage", image, image.name);
-  }
-
+  const imageSrc = formData.get("imageSrc") as string;
   const colors = formData.getAll("colors[]").map((color) => color.toString());
 
   const featureNames = formData

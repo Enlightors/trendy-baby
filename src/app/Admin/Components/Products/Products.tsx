@@ -80,6 +80,23 @@ interface Category {
   name: string;
 }
 
+async function uploadImage(file: File): Promise<string> {
+  const formData = new FormData();
+  formData.append("file", file);
+
+  const response = await fetch("/api/upload", {
+    method: "POST",
+    body: formData,
+  });
+
+  if (!response.ok) {
+    throw new Error("Failed to upload image");
+  }
+
+  const data = await response.json();
+  return data.url;
+}
+
 export default function Products({
   products,
   brands,
@@ -149,21 +166,49 @@ export default function Products({
   const handleAddProduct = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const form = new FormData(e.currentTarget);
-    form.delete("colors"); // Remove any existing colors field
-    colors.forEach((color) => {
-      form.append("colors[]", color);
-    });
-    features.forEach((feature, index) => {
-      form.append(`feature_names[]`, feature.name);
-      if (feature.image) {
-        form.append(`feature_images[]`, feature.image);
-      }
-    });
+
     try {
+      // Handle main product image upload
+      const imageFile = form.get("image") as File;
+      if (imageFile && imageFile.size > 0) {
+        const imageUrl = await uploadImage(imageFile);
+        form.delete("image"); // Remove the file
+        form.append("imageSrc", imageUrl); // Add the URL instead
+      }
+
+      // Handle feature image uploads
+      const featurePromises = features.map(async (feature, index) => {
+        if (feature.image) {
+          const featureImageUrl = await uploadImage(feature.image);
+          return {
+            name: feature.name,
+            image: featureImageUrl,
+          };
+        }
+        return null;
+      });
+
+      const uploadedFeatures = (await Promise.all(featurePromises)).filter(
+        Boolean
+      );
+
+      // Add colors and features to form
+      form.delete("colors");
+      colors.forEach((color) => {
+        form.append("colors[]", color);
+      });
+
+      uploadedFeatures.forEach((feature) => {
+        if (feature) {
+          form.append("feature_names[]", feature.name);
+          form.append("feature_images[]", feature.image);
+        }
+      });
+
       await createProduct(form);
       setIsAddOpen(false);
-      setColors([]); // Reset colors after submission
-      setFeatures([]); // Reset features after submission
+      setColors([]);
+      setFeatures([]);
     } catch (error) {
       console.error("Error creating product:", error);
     }
@@ -175,22 +220,51 @@ export default function Products({
   ) => {
     e.preventDefault();
     const form = new FormData(e.currentTarget);
-    form.delete("colors"); // Remove any existing colors field
-    colors.forEach((color) => {
-      form.append("colors[]", color);
-    });
-    features.forEach((feature, index) => {
-      form.append(`feature_names[]`, feature.name);
-      if (feature.image) {
-        form.append(`feature_images[]`, feature.image);
-      }
-    });
+
     try {
+      // Handle main product image upload
+      const imageFile = form.get("image") as File;
+      if (imageFile && imageFile.size > 0) {
+        const imageUrl = await uploadImage(imageFile);
+        form.delete("image");
+        form.append("imageSrc", imageUrl);
+      }
+
+      // Handle feature image uploads
+      const featurePromises = features.map(async (feature, index) => {
+        if (feature.image) {
+          const featureImageUrl = await uploadImage(feature.image);
+          return {
+            name: feature.name,
+            image: featureImageUrl,
+          };
+        }
+        return {
+          name: feature.name,
+          image: null,
+        };
+      });
+
+      const uploadedFeatures = await Promise.all(featurePromises);
+
+      // Add colors and features to form
+      form.delete("colors");
+      colors.forEach((color) => {
+        form.append("colors[]", color);
+      });
+
+      uploadedFeatures.forEach((feature) => {
+        form.append("feature_names[]", feature.name);
+        if (feature.image) {
+          form.append("feature_images[]", feature.image);
+        }
+      });
+
       await updateProduct(productId, form);
       setIsEditOpen(false);
       setSelectedProduct(null);
-      setColors([]); // Reset colors after submission
-      setFeatures([]); // Reset features after submission
+      setColors([]);
+      setFeatures([]);
     } catch (error) {
       console.error("Error updating product:", error);
     }
@@ -214,13 +288,13 @@ export default function Products({
             <DialogHeader>
               <DialogTitle>Add New Product</DialogTitle>
               <DialogDescription>
-                Fill in the product details below
+                Fill in the product details below. Fields marked with * are required.
               </DialogDescription>
             </DialogHeader>
             <form onSubmit={handleAddProduct} className="space-y-6">
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <Label htmlFor="name">Name</Label>
+                  <Label htmlFor="name">Name *</Label>
                   <Input
                     required
                     id="name"
@@ -229,7 +303,7 @@ export default function Products({
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="image">Product Image</Label>
+                  <Label htmlFor="image">Product Image *</Label>
                   <Input
                     required
                     id="image"
@@ -239,7 +313,7 @@ export default function Products({
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="category_id">Category</Label>
+                  <Label htmlFor="category_id">Category *</Label>
                   <Select name="category_id" required>
                     <SelectTrigger>
                       <SelectValue placeholder="Select category" />
@@ -273,7 +347,7 @@ export default function Products({
                 </div>
               </div>
               <div className="space-y-2">
-                <Label htmlFor="description">Description</Label>
+                <Label htmlFor="description">Description *</Label>
                 <Textarea
                   required
                   id="description"
@@ -482,7 +556,7 @@ export default function Products({
                       <DialogHeader>
                         <DialogTitle>Edit Product</DialogTitle>
                         <DialogDescription>
-                          Modify the product details below
+                          Modify the product details below. Fields marked with * are required.
                         </DialogDescription>
                       </DialogHeader>
                       <form
@@ -491,7 +565,7 @@ export default function Products({
                       >
                         <div className="grid grid-cols-2 gap-4">
                           <div className="space-y-2">
-                            <Label htmlFor="edit-name">Name</Label>
+                            <Label htmlFor="edit-name">Name *</Label>
                             <Input
                               required
                               id="edit-name"
@@ -509,7 +583,7 @@ export default function Products({
                             />
                           </div>
                           <div className="space-y-2">
-                            <Label htmlFor="edit-category">Category</Label>
+                            <Label htmlFor="edit-category">Category *</Label>
                             <Select
                               name="category_id"
                               defaultValue={product.category_id.toString()}
@@ -553,7 +627,7 @@ export default function Products({
                           </div>
                         </div>
                         <div className="space-y-2">
-                          <Label htmlFor="edit-description">Description</Label>
+                          <Label htmlFor="edit-description">Description *</Label>
                           <Textarea
                             required
                             id="edit-description"
