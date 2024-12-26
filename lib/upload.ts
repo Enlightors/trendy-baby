@@ -17,7 +17,7 @@ export default async function Upload(
       ACL: "public-read",
       ContentType: file.mimetype,
     };
-    s3.putObject(params, (err: AWSError, data: PutObjectOutput) => {
+    s3.putObject(params, (err: AWSError) => {
       if (err) reject(err);
       const storageUrl = process.env.STORAGE_URL?.replace(/\/$/, "");
       const fullUrl = `${storageUrl}/${bucket}/${objectName}`.replace(

@@ -177,7 +177,7 @@ export default function Products({
       }
 
       // Handle feature image uploads
-      const featurePromises = features.map(async (feature, index) => {
+      const featurePromises = features.map(async (feature) => {
         if (feature.image) {
           const featureImageUrl = await uploadImage(feature.image);
           return {
@@ -231,7 +231,7 @@ export default function Products({
       }
 
       // Handle feature image uploads
-      const featurePromises = features.map(async (feature, index) => {
+      const featurePromises = features.map(async (feature) => {
         if (feature.image) {
           const featureImageUrl = await uploadImage(feature.image);
           return {
@@ -288,7 +288,8 @@ export default function Products({
             <DialogHeader>
               <DialogTitle>Add New Product</DialogTitle>
               <DialogDescription>
-                Fill in the product details below. Fields marked with * are required.
+                Fill in the product details below. Fields marked with * are
+                required.
               </DialogDescription>
             </DialogHeader>
             <form onSubmit={handleAddProduct} className="space-y-6">
@@ -556,7 +557,8 @@ export default function Products({
                       <DialogHeader>
                         <DialogTitle>Edit Product</DialogTitle>
                         <DialogDescription>
-                          Modify the product details below. Fields marked with * are required.
+                          Modify the product details below. Fields marked with *
+                          are required.
                         </DialogDescription>
                       </DialogHeader>
                       <form
@@ -627,7 +629,9 @@ export default function Products({
                           </div>
                         </div>
                         <div className="space-y-2">
-                          <Label htmlFor="edit-description">Description *</Label>
+                          <Label htmlFor="edit-description">
+                            Description *
+                          </Label>
                           <Textarea
                             required
                             id="edit-description"

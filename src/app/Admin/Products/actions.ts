@@ -1,5 +1,4 @@
 "use server";
-import { productData } from "@/lib/products";
 import { getServerSession } from "next-auth";
 import { prisma } from "@/lib/prisma";
 import { authOptions } from "@/auth";
@@ -123,28 +122,3 @@ export async function deleteProduct(productId: number) {
 
   revalidatePath("/admin/products");
 }
-const Seeder = async () => {
-  const session = await getServerSession(authOptions);
-  if (!session) {
-    throw new Error("You must be logged in");
-  }
-
-  try {
-    for (const product of productData) {
-      await prisma.product.create({
-        data: {
-          name: product.name,
-          description: product.description || "",
-          imageSrc: product.imageSrc,
-          featured: product.featured || false,
-          category_id: product.category_id || 1,
-        },
-      });
-    }
-
-    revalidatePath("/Admin/Products");
-  } catch (error) {
-    console.error("Error in Seeder:", error);
-    throw error; // Re-throw to handle in calling code
-  }
-};
