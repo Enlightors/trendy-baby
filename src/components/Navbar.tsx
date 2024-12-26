@@ -11,7 +11,6 @@ import {
 } from "@/src/components/popover";
 import Productscom from "@/src/components/Productscom";
 import { Product } from "@/types";
-
 export default function NavBar({
   locale,
   T,
