@@ -1,4 +1,4 @@
-import { PutObjectOutput, PutObjectRequest } from "aws-sdk/clients/s3";
+import { PutObjectRequest } from "aws-sdk/clients/s3";
 import { AWSError } from "aws-sdk/lib/error";
 import * as S3 from "aws-sdk/clients/s3";
 import Connect from "./storage";
