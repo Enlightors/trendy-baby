@@ -1,13 +1,7 @@
-import { notFound } from "next/navigation";
-import React from "react";
-import {
-  productData,
-  Products,
-  categoriesData,
-  Categories,
-} from "@/lib/products";
-import Image from "next/image";
 import { prisma } from "@/lib/prisma";
+import { Feature } from "@/types";
+import Image from "next/image";
+import { notFound } from "next/navigation";
 
 export default async function Page({
   params: { id },
@@ -92,17 +86,17 @@ export default async function Page({
                 }}
               ></div>
               <div className="flex flex-col gap-2 mt-2">
-                {product?.features?.map((feature: any, index: any) => (
-                  <div className="grid grid-cols-2 ">
+                {product?.features?.map((feature: Feature) => (
+                  <div key={feature.id} className="grid grid-cols-2 ">
                     <div className="flex flex-row items-center gap-x-2">
                       <div className="flex h-[30px] w-[30px] bg-[#FF8189] rounded-full justify-center items-center">
                         <img
-                          src={feature.icon}
+                          src={feature.image}
                           className=" object-contain w-[18px] h-[18px]"
                         />
                       </div>
                       <div className="font-medium">
-                        <p> {feature.description}</p>
+                        <p> {feature.name}</p>
                       </div>
                     </div>
                   </div>

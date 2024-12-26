@@ -1,12 +1,13 @@
 "use client";
 import Link from "next/link";
+import { Product } from "@/types";
 
 interface ProductscomProps {
   filter?: number[];
   isPopover?: boolean;
   hasBackground?: boolean; // Add this prop
-  setPopoverOpen?: any;
-  FeaturedProducts?: any;
+  setPopoverOpen?: (open: boolean) => void;
+  FeaturedProducts?: Product[];
 }
 
 export default function Productscom({
@@ -21,7 +22,7 @@ export default function Productscom({
         hasBackground ? "bg-[#ecf0f2]" : ""
       } grid grid-cols-2 gap-4 md:flex md:flex-row my-[30px] place-items-center gap-x-8 justify-center items-center  px-[20px]  h-[700px] md:h-[250px]`}
     >
-      {FeaturedProducts?.map((product: any) => (
+      {FeaturedProducts?.map((product: Product) => (
         <div
           key={product.id}
           className="flex flex-col items-center justify-center"

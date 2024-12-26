@@ -1,9 +1,9 @@
 "use client";
 
-import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Product } from "@/types";
 
 const formSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
@@ -18,7 +18,7 @@ const formSchema = z.object({
 
 type FormData = z.infer<typeof formSchema>;
 
-export default function ContactForm({ products }: { products: any }) {
+export default function ContactForm({ products }: { products: Product[] }) {
   const {
     register,
     handleSubmit,
@@ -164,8 +164,11 @@ ${data.message}
                 {...register("product")}
               >
                 <option value="">Please Select</option>
-                {products?.map((product: any) => (
-                  <option value={`${product.id} - ${product.name}`}>
+                {products?.map((product: Product) => (
+                  <option
+                    key={product.id}
+                    value={`${product.id} - ${product.name}`}
+                  >
                     {product.name}
                   </option>
                 ))}

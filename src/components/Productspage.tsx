@@ -2,20 +2,33 @@
 
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
+
+interface Category {
+  id: number;
+  name: string;
+}
+
+interface Product {
+  id: number;
+  name: string;
+  imageSrc: string;
+  category_id: number;
+}
 
 export default function Productspage({
   products,
   categories,
 }: {
-  products: any;
-  categories: any;
+  products: Product[];
+  categories: Category[];
 }) {
   return (
     <div className="w-full">
       <p className="text-center text-[#2D617B] text-3xl sm:text-3xl md:text-4xl font-semibold lg:text-4xl pb-4 pt-[70px] ">
         Make feeding your baby easier with TrendingBaby
       </p>
-      {categories.map((categories: any) => (
+      {categories.map((categories: Category) => (
         <div key={categories.id}>
           <div className="flex flex-col items-center justify-center my-8">
             <p className="text-white bg-[#00B1D5] px-14 rounded-full py-1 text-3xl md:text-3xl font-semibold lg:text-3xl">
@@ -24,8 +37,10 @@ export default function Productspage({
           </div>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-10 my-[30px] items-center justify-center px-[40px]">
             {products
-              .filter((products: any) => products.category_id === categories.id)
-              .map((products: any) => (
+              .filter(
+                (products: Product) => products.category_id === categories.id
+              )
+              .map((products: Product) => (
                 <div
                   key={products.id}
                   className="flex flex-col items-center justify-center"
@@ -35,12 +50,13 @@ export default function Productspage({
                     className="text-center"
                   >
                     <div className="max-h-[200px] h-[200px] flex items-center justify-center">
-                      <img
+                      <Image
                         // className="h-[250px]"
                         src={products.imageSrc}
                         alt={products.name}
                         width={200}
                         height={200}
+                        className="h-[250px]"
                       />
                     </div>
                     <div className="max-w-[200px]">

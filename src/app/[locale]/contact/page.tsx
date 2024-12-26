@@ -1,9 +1,8 @@
 import Contact from "@/src/components/Contact";
 import React from "react";
 import { prisma } from "@/lib/prisma";
-type Props = {};
 
-export default async function page({}: Props) {
+export default async function page() {
   const products = await prisma.product.findMany({
     select: {
       name: true,
@@ -12,6 +11,7 @@ export default async function page({}: Props) {
   });
   return (
     <div>
+      {/* @ts-expect-error  May havae defrent types */}
       <Contact products={products} />
     </div>
   );

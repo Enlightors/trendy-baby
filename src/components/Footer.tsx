@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { FaFacebookF, FaInstagram, FaTiktok } from "react-icons/fa";
 
-export default function Footer({ locale }: any) {
+export default function Footer() {
   return (
     <div className="flex flex-col bg-[#00B1D5] h-[300px] text-white">
       <div className="grid grid-cols-2 lg:grid-cols-3  pt-10 text-sm w-full max-w-[90vw] lg:max-w-[80vw] mx-auto">

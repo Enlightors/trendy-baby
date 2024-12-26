@@ -22,7 +22,7 @@ export default function Aboutcom() {
             children are our future, which is why we continuously invest in
             research and development to offer the latest products that meet
             their evolving needs. Our goal is to be the leading company in the
-            children's products industry in the region..
+            children&apos;s products industry in the region..
           </p>
         </div>
         <div className="flex py-10 md:pb-0 justify-center md:justify-normal  ">

@@ -1,4 +1,3 @@
-import Aboutcom from "@/src/components/Aboutcom";
 import React from "react";
 import Banner from "@/src/components/Banner";
 import Productscom from "@/src/components/Productscom";
@@ -67,18 +66,18 @@ export default function page() {
               children are our future, which is why we continuously invest in
               research and development to offer the latest products that meet
               their evolving needs. Our goal is to be the leading company in the
-              children's products industry in the region.
+              children&apos;s products industry in the region.
             </p>
           </div>
           <div className="flex flex-col  gap-y-2">
             <p className="font-bold">Focusing on Quality and Safet</p>
             <p className="max-w-[600px]">
-              At Trending Baby, we put your child's safety and security first.
-              All our products are designed according to the highest quality and
-              safety standards and undergo rigorous testing to ensure their
-              safety. Our mission is to provide a safe and comfortable
-              environment for your child, so they can grow and learn in a
-              healthy environment.
+              At Trending Baby, we put your child&apos;s safety and security
+              first. All our products are designed according to the highest
+              quality and safety standards and undergo rigorous testing to
+              ensure their safety. Our mission is to provide a safe and
+              comfortable environment for your child, so they can grow and learn
+              in a healthy environment.
             </p>
           </div>
         </div>

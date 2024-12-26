@@ -4,13 +4,14 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";
 import { IoMenu } from "react-icons/io5";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import {
   Popover,
   PopoverTrigger,
   PopoverContent,
 } from "@/src/components/popover";
 import Productscom from "@/src/components/Productscom";
+import { Product } from "@/types";
 
 export default function NavBar({
   locale,
@@ -18,8 +19,8 @@ export default function NavBar({
   FeaturedProducts,
 }: {
   locale: string;
-  T: any;
-  FeaturedProducts: any;
+  T: { [key: string]: string };
+  FeaturedProducts: Product[];
 }) {
   const [MobileMenu, setMobileMenu] = useState(false);
 
@@ -28,23 +29,6 @@ export default function NavBar({
   const path = usePathname();
 
   const router = useRouter();
-
-  const searchParams = useSearchParams();
-
-  const languages = [
-    { name: "English", value: "en" },
-    { name: "العربية", value: "ar" },
-  ];
-
-  const switchLang = (lang: string) => {
-    let newPath = path;
-    if (path.includes("/en")) {
-      newPath = path.replace("/en", `/${lang}`);
-    } else if (path.includes("/ar")) {
-      newPath = path.replace("/ar", `/${lang}`);
-    }
-    router.push(`${newPath}?${searchParams.toString()}`);
-  };
 
   return (
     <>

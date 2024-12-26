@@ -42,12 +42,12 @@ function VideoPlayer({
         onPlay={() => setHasStarted(true)}
         onEnded={() => {
           setHasStarted(false);
-          // @ts-ignore
+          // @ts-expect-error - ignore this error
           onPlay(null, null); // Reset active video when it ends
         }}
         onPause={() => {
           if (isPlaying) {
-            // @ts-ignore
+            // @ts-expect-error - ignore this error
             onPlay(null, null); // Reset active video when paused
           }
         }}

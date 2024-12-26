@@ -1,14 +1,7 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
+import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
 import {
   Dialog,
   DialogContent,
@@ -18,16 +11,16 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Checkbox } from "@/components/ui/checkbox";
 import {
-  createProduct,
-  updateProduct,
-  deleteProduct,
-} from "@/src/app/Admin/Products/actions";
-import { Textarea } from "@/components/ui/textarea";
+  Pagination,
+  PaginationContent,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from "@/components/ui/pagination";
 import {
   Select,
   SelectContent,
@@ -36,14 +29,20 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import {
-  Pagination,
-  PaginationContent,
-  PaginationEllipsis,
-  PaginationItem,
-  PaginationLink,
-  PaginationNext,
-  PaginationPrevious,
-} from "@/components/ui/pagination";
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import { Textarea } from "@/components/ui/textarea";
+import {
+  createProduct,
+  deleteProduct,
+  updateProduct,
+} from "@/src/app/Admin/Products/actions";
+import React, { useState } from "react";
 
 interface Feature {
   id: number;
@@ -100,10 +99,7 @@ export default function Products({
   const [features, setFeatures] = useState<{ name: string; image: string }[]>(
     []
   );
-  const [windowHeight, setWindowHeight] = useState(0);
-  useEffect(() => {
-    setWindowHeight(window.innerHeight);
-  }, []);
+
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 11;
 
@@ -153,7 +149,7 @@ export default function Products({
     colors.forEach((color) => {
       form.append("colors[]", color);
     });
-    features.forEach((feature, index) => {
+    features.forEach((feature) => {
       form.append(`feature_names[]`, feature.name);
       form.append(`feature_images[]`, feature.image);
     });
@@ -177,7 +173,7 @@ export default function Products({
     colors.forEach((color) => {
       form.append("colors[]", color);
     });
-    features.forEach((feature, index) => {
+    features.forEach((feature) => {
       form.append(`feature_names[]`, feature.name);
       form.append(`feature_images[]`, feature.image);
     });

@@ -8,9 +8,9 @@ const PopoverTrigger = PopoverPrimitive.Trigger;
 const PopoverContent = React.forwardRef<
   React.ElementRef<typeof PopoverPrimitive.Content>,
   React.ComponentPropsWithoutRef<typeof PopoverPrimitive.Content>
->(({ className, align = "center", sideOffset = 0, ...props }, ref) => {
+>(({ className, ...props }, ref) => {
   return (
-    <div className="">
+    <div className={cn("w-full h-full", className)}>
       <div className="flex flex-row items-center justify-center">
         <PopoverPrimitive.Portal>
           <PopoverPrimitive.Content
