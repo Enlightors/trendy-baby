@@ -13,11 +13,9 @@ import Productscom from "@/src/components/Productscom";
 import { Product } from "@/types";
 export default function NavBar({
   locale,
-  T,
   FeaturedProducts,
 }: {
   locale: string;
-  T: { [key: string]: string };
   FeaturedProducts: Product[];
 }) {
   const [MobileMenu, setMobileMenu] = useState(false);

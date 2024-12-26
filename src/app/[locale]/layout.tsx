@@ -48,7 +48,7 @@ export default async function RootLayout({
       } `}
     >
       <body className="min-h-screen h-screen">
-        <Navbar locale={locale} T={T} FeaturedProducts={FeaturedProducts} />
+        <Navbar locale={locale} FeaturedProducts={FeaturedProducts} />
         <div>{children}</div>
         <Footer />
       </body>
