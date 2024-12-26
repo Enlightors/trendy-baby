@@ -46,12 +46,17 @@ export default function ContactForm({
   });
 
   const onSubmit = (data: FormData) => {
+    const productId = data.product.split(" - ")[0];
+    const selectedProduct = products.find((p) => p.id === Number(productId));
+    const productImage = selectedProduct?.imageSrc || "";
+
     const subject = `Contact Form Submission - ${data.product}`;
     const body = `
 Name: ${data.name}
 Email: ${data.email}
 Phone: ${data.phone}
 Product: ${data.product}
+Product Image: ${productImage}
 
 Message:
 ${data.message}
@@ -167,7 +172,10 @@ ${data.message}
               >
                 Product <span className="text-red-500">*</span>
               </label>
-              <Select onValueChange={(value) => setValue("product", value)}>
+              <Select
+                defaultValue={`${defaultProduct?.id} - ${defaultProduct?.name}`}
+                onValueChange={(value) => setValue("product", value)}
+              >
                 <SelectTrigger className="bg-white text-gray-900">
                   <SelectValue placeholder="Please Select" />
                 </SelectTrigger>
