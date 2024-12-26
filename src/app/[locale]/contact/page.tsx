@@ -13,6 +13,7 @@ export default async function page({
     select: {
       name: true,
       id: true,
+      imageSrc: true,
     },
   });
   const defaultProduct = productId

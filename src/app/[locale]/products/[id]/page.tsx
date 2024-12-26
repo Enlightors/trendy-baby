@@ -61,25 +61,28 @@ export default async function Page({
                     <p className="text-black font-bold">Category: </p>
                     {product?.category?.name}
                   </div>
-                  |
-                  <div className="flex flex-row flex-wrap gap-2">
-                    <p className="text-black font-bold">Brand : </p>
-                    <p>{product?.brand?.name}</p>
-                  </div>
-                  |
-                  <div className="flex flex-row flex-wrap gap-2">
-                    <p className="text-black font-bold">Colors: </p>
-                    {product?.colors?.map((color, index) => {
-                      return (
-                        <p key={index}>
-                          {color}
-                          {product?.colors &&
-                            index !== product?.colors?.length - 1 &&
-                            ","}
-                        </p>
-                      );
-                    })}
-                  </div>
+                  {product?.brand && (
+                    <div className="flex flex-row flex-wrap gap-2">
+                      | <p className="text-black font-bold">Brand : </p>
+                      <p>{product?.brand?.name}</p>
+                    </div>
+                  )}
+
+                  {product?.colors.length > 0 && (
+                    <div className="flex flex-row flex-wrap gap-2">
+                      | <p className="text-black font-bold">Colors: </p>
+                      {product?.colors?.map((color, index) => {
+                        return (
+                          <p key={index}>
+                            {color}
+                            {product?.colors &&
+                              index !== product?.colors?.length - 1 &&
+                              ","}
+                          </p>
+                        );
+                      })}
+                    </div>
+                  )}
                 </div>
               </div>
               <div className="my-2 w-full border-t border-gray-200 dark:border-gray-700"></div>

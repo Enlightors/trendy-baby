@@ -2,7 +2,18 @@ import React from "react";
 import Banner from "@/src/components/Banner";
 import Productscom from "@/src/components/Productscom";
 import Image from "next/image";
-export default function page() {
+import { prisma } from "@/lib/prisma";
+export default async function page() {
+  const FeaturedProducts = await prisma.product.findMany({
+    where: {
+      featured: true,
+    },
+    include: {
+      category: true,
+      brand: true,
+      features: true,
+    },
+  });
   return (
     <div className="flex flex-col">
       <div className="bg-[#00B1D5] w-full">
@@ -83,7 +94,7 @@ export default function page() {
         </div>
       </div>
 
-      <Productscom hasBackground={true} />
+      <Productscom hasBackground={true} FeaturedProducts={FeaturedProducts} />
     </div>
   );
 }

@@ -31,11 +31,13 @@ export default async function Home() {
       <p className="text-center text-[#2D617B] text-3xl sm:text-3xl md:text-4xl font-semibold lg:text-4xl xl:pt-[20px] pb-1 px-20">
         Make feeding your baby easier with TrendingBaby
       </p>
-      <Productscom
-        hasBackground={true}
-        setPopoverOpen={undefined}
-        FeaturedProducts={FeaturedProducts}
-      />
+      <div className="my-[20px]">
+        <Productscom
+          hasBackground={true}
+          setPopoverOpen={undefined}
+          FeaturedProducts={FeaturedProducts}
+        />
+      </div>
       <Banner />
       <Aboutcom />
       <TwoVideoSection />

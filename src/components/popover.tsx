@@ -17,7 +17,7 @@ const PopoverContent = React.forwardRef<
             ref={ref}
             sideOffset={0}
             className={cn(
-              " w-screen z-50 bg-[#3F738D]/80 p-4 text-white shadow-md outline-none "
+              " w-screen z-50 bg-[#1d3e4e]/80 backdrop-blur-sm p-4 text-white shadow-md outline-none "
             )}
             {...props}
           ></PopoverPrimitive.Content>

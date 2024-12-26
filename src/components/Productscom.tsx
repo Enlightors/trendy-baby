@@ -20,7 +20,7 @@ export default function Productscom({
     <div
       className={`${
         hasBackground ? "bg-[#ecf0f2]" : ""
-      } grid grid-cols-2 gap-4 md:flex md:flex-row my-[30px] place-items-center gap-x-8 justify-center items-center  px-[20px]  h-[700px] md:h-[250px]`}
+      } grid grid-cols-2 gap-4 md:flex md:flex-row mt-[20px] place-items-center gap-x-8 justify-center items-center  px-[20px]  h-[700px] md:h-[250px]`}
     >
       {FeaturedProducts?.map((product: Product) => (
         <div

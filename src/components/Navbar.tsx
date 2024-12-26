@@ -1,16 +1,16 @@
 "use client";
-import Image from "next/image";
-import Link from "next/link";
-import React, { useState } from "react";
-import { IoMenu } from "react-icons/io5";
-import { usePathname, useRouter } from "next/navigation";
 import {
   Popover,
-  PopoverTrigger,
   PopoverContent,
+  PopoverTrigger,
 } from "@/src/components/popover";
 import Productscom from "@/src/components/Productscom";
 import { Product } from "@/types";
+import Image from "next/image";
+import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
+import { useState } from "react";
+import { IoMenu } from "react-icons/io5";
 export default function NavBar({
   locale,
   FeaturedProducts,

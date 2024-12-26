@@ -4,6 +4,16 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Product } from "@/types";
+import Image from "next/image";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 
 const formSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
@@ -13,7 +23,7 @@ const formSchema = z.object({
     .min(10, "Please enter a valid phone number")
     .regex(/^\d+$/, "Phone number must contain only digits"),
   product: z.string().min(1, "Please select a product"),
-  message: z.string().min(10, "Message must be at least 10 characters"),
+  message: z.string(),
 });
 
 type FormData = z.infer<typeof formSchema>;
@@ -24,6 +34,7 @@ export default function ContactForm({ products }: { products: Product[] }) {
     handleSubmit,
     formState: { errors },
     reset,
+    setValue,
   } = useForm<FormData>({
     resolver: zodResolver(formSchema),
   });
@@ -80,13 +91,13 @@ ${data.message}
                 htmlFor="name"
                 className="block text-sm font-medium text-gray-100 mb-1"
               >
-                Name
+                Name <span className="text-red-500">*</span>
               </label>
-              <input
+              <Input
                 type="text"
                 id="name"
                 placeholder="Enter your name"
-                className="w-full h-10 px-4 rounded-md border border-gray-300 bg-white text-gray-900 outline-none"
+                className="bg-white text-gray-900"
                 {...register("name")}
               />
               {errors.name && (
@@ -99,13 +110,13 @@ ${data.message}
                 htmlFor="email"
                 className="block text-sm font-medium text-gray-100 mb-1"
               >
-                Email
+                Email <span className="text-red-500">*</span>
               </label>
-              <input
+              <Input
                 type="email"
                 id="email"
                 placeholder="Enter your email"
-                className="w-full h-10 px-4 rounded-md border border-gray-300 bg-white text-gray-900 outline-none"
+                className="bg-white text-gray-900"
                 {...register("email")}
               />
               {errors.email && (
@@ -120,15 +131,15 @@ ${data.message}
                 htmlFor="phone"
                 className="block text-sm font-medium text-gray-100 mb-1"
               >
-                Phone number
+                Phone number <span className="text-red-500">*</span>
               </label>
-              <input
+              <Input
                 type="tel"
                 id="phone"
                 placeholder="964 770 000 0000"
                 pattern="[0-9]*"
                 inputMode="numeric"
-                className="w-full h-10 px-4 rounded-md border border-gray-300 bg-white text-gray-900 outline-none"
+                className="bg-white text-gray-900"
                 {...register("phone")}
               />
               {errors.phone && (
@@ -143,23 +154,35 @@ ${data.message}
                 htmlFor="product"
                 className="block text-sm font-medium text-gray-100 mb-1"
               >
-                Product
+                Product <span className="text-red-500">*</span>
               </label>
-              <select
-                id="product"
-                className="w-full h-10 px-4 rounded-md border border-gray-300 bg-white text-gray-900 outline-none"
-                {...register("product")}
-              >
-                <option value="">Please Select</option>
-                {products?.map((product: Product) => (
-                  <option
-                    key={product.id}
-                    value={`${product.id} - ${product.name}`}
-                  >
-                    {product.name}
-                  </option>
-                ))}
-              </select>
+              <Select onValueChange={(value) => setValue("product", value)}>
+                <SelectTrigger className="bg-white text-gray-900">
+                  <SelectValue placeholder="Please Select" />
+                </SelectTrigger>
+                <SelectContent>
+                  {products?.map((product: Product) => (
+                    <SelectItem
+                      key={product.id}
+                      value={`${product.id} - ${product.name}`}
+                      className="flex items-center gap-2"
+                    >
+                      <div className="flex items-center gap-2">
+                        {product.imageSrc && (
+                          <Image
+                            src={product.imageSrc}
+                            alt={product.name}
+                            width={20}
+                            height={20}
+                            className="inline-block"
+                          />
+                        )}
+                        <span>{product.name}</span>
+                      </div>
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
               {errors.product && (
                 <p className="mt-1 text-sm text-white">
                   {errors.product.message}
@@ -174,12 +197,12 @@ ${data.message}
               >
                 Message
               </label>
-              <textarea
+              <Textarea
                 id="message"
                 placeholder="Enter your message"
-                className="w-full h-24 px-4 py-2 rounded-md border border-gray-300 bg-white text-gray-900 outline-none resize-none"
+                className="bg-white text-gray-900 resize-none"
                 {...register("message")}
-              ></textarea>
+              />
               {errors.message && (
                 <p className="mt-1 text-sm text-white">
                   {errors.message.message}
