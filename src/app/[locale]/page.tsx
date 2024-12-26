@@ -11,12 +11,18 @@ export default async function Home() {
     where: {
       featured: true,
     },
+    include: {
+      category: true,
+      brand: true,
+      features: true,
+    },
   });
   //// name and id only
   const products = await prisma.product.findMany({
-    select: {
-      name: true,
-      id: true,
+    include: {
+      category: true,
+      brand: true,
+      features: true,
     },
   });
   return (
@@ -27,7 +33,7 @@ export default async function Home() {
       </p>
       <Productscom
         hasBackground={true}
-        setPopoverOpen={null}
+        setPopoverOpen={undefined}
         FeaturedProducts={FeaturedProducts}
       />
       <Banner />
