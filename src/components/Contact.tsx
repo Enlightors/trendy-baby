@@ -18,7 +18,13 @@ const formSchema = z.object({
 
 type FormData = z.infer<typeof formSchema>;
 
-export default function ContactForm({ products }: { products: Product[] }) {
+export default function ContactForm({
+  products,
+  defaultProduct,
+}: {
+  products: Product[];
+  defaultProduct: Product | null;
+}) {
   const {
     register,
     handleSubmit,
@@ -162,6 +168,11 @@ ${data.message}
                   errors.product ? "border-white" : "border-gray-300"
                 } bg-white text-gray-900 outline-none`}
                 {...register("product")}
+                defaultValue={
+                  defaultProduct
+                    ? `${defaultProduct?.id} - ${defaultProduct?.name}`
+                    : ""
+                }
               >
                 <option value="">Please Select</option>
                 {products?.map((product: Product) => (

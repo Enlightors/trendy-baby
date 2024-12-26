@@ -1,6 +1,7 @@
 import { prisma } from "@/lib/prisma";
 import { Feature } from "@/types";
 import Image from "next/image";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 
 export default async function Page({
@@ -41,9 +42,12 @@ export default async function Page({
               </h1>
               <div>
                 {/* /// Show BuyNow button that messages a whatsap number  */}
-                <button className="bg-[#00b1d5] text-white px-4 py-2 rounded-md w-full">
-                  Buy Now
-                </button>
+                <Link
+                  href={`/contact?product_id=${product.id}`}
+                  className="bg-[#00b1d5] text-white px-4 py-2 rounded-md w-full"
+                >
+                  Contact Us
+                </Link>
               </div>
             </div>
             <div className="order-3 col-span-1 mt-4 md:order-2 md:col-span-4 md:mt-0 2xl:col-span-7">

@@ -56,7 +56,7 @@ export default function Productspage({
                         alt={products.name}
                         width={200}
                         height={200}
-                        className="h-[250px]"
+                        className="h-[250px] object-contain"
                       />
                     </div>
                     <div className="max-w-[200px]">

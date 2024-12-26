@@ -71,7 +71,7 @@ export default function NavBar({
                           locale === "en" && "first-letter:uppercase"
                         }`}
                       >
-                        {T[page.name]}
+                        {page.name}
                       </p>
                     </div>
                   </PopoverTrigger>
@@ -102,7 +102,7 @@ export default function NavBar({
                       locale === "en" && "first-letter:uppercase"
                     }`}
                   >
-                    {T[page.name]}
+                    {page.name}
                   </p>
                 </Link>
               )
@@ -134,7 +134,7 @@ export default function NavBar({
                   locale === "en" && "first-letter:uppercase"
                 }`}
               >
-                {T[page.name]}
+                {page.name}
               </p>
             </Link>
           ))}
@@ -148,6 +148,5 @@ const Pages = [
   { name: "Home", path: "/" },
   { name: "Products", path: "/products" },
   { name: "About", path: "/about" },
-
   { name: "Contact", path: "/contact" },
 ];
