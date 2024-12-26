@@ -12,7 +12,15 @@ import {
 } from "@/src/components/popover";
 import Productscom from "@/src/components/Productscom";
 
-export default function NavBar({ locale, T }: { locale: string; T: any }) {
+export default function NavBar({
+  locale,
+  T,
+  FeaturedProducts,
+}: {
+  locale: string;
+  T: any;
+  FeaturedProducts: any;
+}) {
   const [MobileMenu, setMobileMenu] = useState(false);
 
   const [popoverOpen, setPopoverOpen] = useState(false); // State for hover-based popover
@@ -92,6 +100,7 @@ export default function NavBar({ locale, T }: { locale: string; T: any }) {
                     <Productscom
                       isPopover={true}
                       setPopoverOpen={setPopoverOpen}
+                      FeaturedProducts={FeaturedProducts}
                     />
                   </PopoverContent>
                 </Popover>

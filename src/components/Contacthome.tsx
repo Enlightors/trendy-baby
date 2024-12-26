@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -18,7 +17,7 @@ const formSchema = z.object({
 
 type FormData = z.infer<typeof formSchema>;
 
-export default function ContactForm() {
+export default function ContactForm({ products }: { products: any }) {
   const {
     register,
     handleSubmit,
@@ -35,7 +34,6 @@ Name: ${data.name}
 Email: ${data.email}
 Phone: ${data.phone}
 Product: ${data.product}
-
 Message:
 ${data.message}
     `;
@@ -152,16 +150,11 @@ ${data.message}
                 {...register("product")}
               >
                 <option value="">Please Select</option>
-                <option value="Smart Formula Milk Maker O5">
-                  Smart Formula Milk Maker O5
-                </option>
-                <option value="Wavy Video Baby Monitor">
-                  Wavy Video Baby Monitor
-                </option>
-                <option value="Mono Full HD Video Baby Monitor">
-                  Mono Full HD Video Baby Monitor
-                </option>
-                <option value="other">Other</option>
+                {products?.map((product: any) => (
+                  <option value={`${product.id} - ${product.name}`}>
+                    {product.name}
+                  </option>
+                ))}
               </select>
               {errors.product && (
                 <p className="mt-1 text-sm text-white">

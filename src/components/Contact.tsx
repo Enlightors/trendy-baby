@@ -18,7 +18,7 @@ const formSchema = z.object({
 
 type FormData = z.infer<typeof formSchema>;
 
-export default function ContactForm() {
+export default function ContactForm({ products }: { products: any }) {
   const {
     register,
     handleSubmit,
@@ -164,16 +164,11 @@ ${data.message}
                 {...register("product")}
               >
                 <option value="">Please Select</option>
-                <option value="Smart Formula Milk Maker O5">
-                  Smart Formula Milk Maker O5
-                </option>
-                <option value="Wavy Video Baby Monitor">
-                  Wavy Video Baby Monitor
-                </option>
-                <option value="Mono Full HD Video Baby Monitor">
-                  Mono Full HD Video Baby Monitor
-                </option>
-                <option value="other">Other</option>
+                {products?.map((product: any) => (
+                  <option value={`${product.id} - ${product.name}`}>
+                    {product.name}
+                  </option>
+                ))}
               </select>
               {errors.product && (
                 <p className="mt-1 text-sm font-semibold border-white text-white px-2 py-1 rounded">

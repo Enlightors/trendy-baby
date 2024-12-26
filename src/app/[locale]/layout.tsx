@@ -2,6 +2,7 @@ import localFont from "next/font/local";
 import { getTranslations } from "next-intl/server";
 import Navbar from "@/src/components/Navbar";
 import Footer from "@/src/components/Footer";
+import { prisma } from "@/lib/prisma";
 
 const Arabic = localFont({
   src: "../../../public/fonts/Rabar_037.ttf",
@@ -28,6 +29,11 @@ export default async function RootLayout({
     Contact: t("Contact"),
   };
 
+  const FeaturedProducts = await prisma.product.findMany({
+    where: {
+      featured: true,
+    },
+  });
   return (
     <html
       lang={locale}
@@ -37,7 +43,7 @@ export default async function RootLayout({
       } `}
     >
       <body className="min-h-screen h-screen">
-        <Navbar locale={locale} T={T} />
+        <Navbar locale={locale} T={T} FeaturedProducts={FeaturedProducts} />
         <div>{children}</div>
         <Footer locale={locale} T={T} />
       </body>

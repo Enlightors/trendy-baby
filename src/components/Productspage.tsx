@@ -2,20 +2,20 @@
 
 import React from "react";
 import Link from "next/link";
-import {
-  productData,
-  Products,
-  Categories,
-  categoriesData,
-} from "@/lib/products";
 
-export default function Productspage() {
+export default function Productspage({
+  products,
+  categories,
+}: {
+  products: any;
+  categories: any;
+}) {
   return (
     <div className="w-full">
       <p className="text-center text-[#2D617B] text-3xl sm:text-3xl md:text-4xl font-semibold lg:text-4xl pb-4 pt-[70px] ">
         Make feeding your baby easier with TrendingBaby
       </p>
-      {categoriesData.map((categories: Categories) => (
+      {categories.map((categories: any) => (
         <div key={categories.id}>
           <div className="flex flex-col items-center justify-center my-8">
             <p className="text-white bg-[#00B1D5] px-14 rounded-full py-1 text-3xl md:text-3xl font-semibold lg:text-3xl">
@@ -23,11 +23,9 @@ export default function Productspage() {
             </p>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-10 my-[30px] items-center justify-center px-[40px]">
-            {productData
-              .filter(
-                (products: Products) => products.category_id === categories.id
-              )
-              .map((products: Products) => (
+            {products
+              .filter((products: any) => products.category_id === categories.id)
+              .map((products: any) => (
                 <div
                   key={products.id}
                   className="flex flex-col items-center justify-center"

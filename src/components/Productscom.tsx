@@ -1,32 +1,27 @@
 "use client";
-import React from "react";
 import Link from "next/link";
-import { productData, Products } from "@/lib/products";
 
 interface ProductscomProps {
   filter?: number[];
   isPopover?: boolean;
   hasBackground?: boolean; // Add this prop
   setPopoverOpen?: any;
+  FeaturedProducts?: any;
 }
 
 export default function Productscom({
-  filter = [],
   isPopover = false,
   hasBackground = false,
   setPopoverOpen,
+  FeaturedProducts,
 }: ProductscomProps) {
-  const filteredProducts = productData
-    .filter((product: Products) => !filter.includes(product.id))
-    .filter((product: Products) => product.featured);
-
   return (
     <div
       className={`${
         hasBackground ? "bg-[#ecf0f2]" : ""
       } grid grid-cols-2 gap-4 md:flex md:flex-row my-[30px] place-items-center gap-x-8 justify-center items-center  px-[20px]  h-[700px] md:h-[250px]`}
     >
-      {filteredProducts.map((product: Products) => (
+      {FeaturedProducts?.map((product: any) => (
         <div
           key={product.id}
           className="flex flex-col items-center justify-center"
