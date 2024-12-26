@@ -33,6 +33,11 @@ export default async function RootLayout({
     where: {
       featured: true,
     },
+    include: {
+      category: true,
+      brand: true,
+      features: true,
+    },
   });
   return (
     <html
@@ -45,7 +50,7 @@ export default async function RootLayout({
       <body className="min-h-screen h-screen">
         <Navbar locale={locale} T={T} FeaturedProducts={FeaturedProducts} />
         <div>{children}</div>
-        <Footer locale={locale} T={T} />
+        <Footer />
       </body>
     </html>
   );
