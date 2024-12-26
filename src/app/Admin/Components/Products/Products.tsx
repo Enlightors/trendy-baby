@@ -96,9 +96,9 @@ export default function Products({
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [colors, setColors] = useState<string[]>([]);
   const [newColor, setNewColor] = useState("");
-  const [features, setFeatures] = useState<{ name: string; image: string }[]>(
-    []
-  );
+  const [features, setFeatures] = useState<
+    { name: string; image: File | null }[]
+  >([]);
 
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 11;
@@ -115,7 +115,7 @@ export default function Products({
   };
 
   const handleAddFeature = () => {
-    setFeatures([...features, { name: "", image: "" }]);
+    setFeatures([...features, { name: "", image: null }]);
   };
 
   const handleRemoveFeature = (indexToRemove: number) => {
@@ -125,10 +125,14 @@ export default function Products({
   const handleFeatureChange = (
     index: number,
     field: "name" | "image",
-    value: string
+    value: string | File
   ) => {
     const newFeatures = [...features];
-    newFeatures[index][field] = value;
+    if (field === "image" && value instanceof File) {
+      newFeatures[index].image = value;
+    } else if (field === "name" && typeof value === "string") {
+      newFeatures[index].name = value;
+    }
     setFeatures(newFeatures);
   };
 
@@ -149,9 +153,11 @@ export default function Products({
     colors.forEach((color) => {
       form.append("colors[]", color);
     });
-    features.forEach((feature) => {
+    features.forEach((feature, index) => {
       form.append(`feature_names[]`, feature.name);
-      form.append(`feature_images[]`, feature.image);
+      if (feature.image) {
+        form.append(`feature_images[]`, feature.image);
+      }
     });
     try {
       await createProduct(form);
@@ -173,9 +179,11 @@ export default function Products({
     colors.forEach((color) => {
       form.append("colors[]", color);
     });
-    features.forEach((feature) => {
+    features.forEach((feature, index) => {
       form.append(`feature_names[]`, feature.name);
-      form.append(`feature_images[]`, feature.image);
+      if (feature.image) {
+        form.append(`feature_images[]`, feature.image);
+      }
     });
     try {
       await updateProduct(productId, form);
@@ -221,12 +229,13 @@ export default function Products({
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="imageSrc">Image URL</Label>
+                  <Label htmlFor="image">Product Image</Label>
                   <Input
                     required
-                    id="imageSrc"
-                    name="imageSrc"
-                    placeholder="Image URL"
+                    id="image"
+                    name="image"
+                    type="file"
+                    accept="image/*"
                   />
                 </div>
                 <div className="space-y-2">
@@ -324,11 +333,14 @@ export default function Products({
                         placeholder="Feature name"
                       />
                       <Input
-                        value={feature.image}
-                        onChange={(e) =>
-                          handleFeatureChange(index, "image", e.target.value)
-                        }
-                        placeholder="Feature image URL"
+                        type="file"
+                        accept="image/*"
+                        onChange={(e) => {
+                          const file = e.target.files?.[0];
+                          if (file) {
+                            handleFeatureChange(index, "image", file);
+                          }
+                        }}
                       />
                       <Button
                         type="button"
@@ -383,11 +395,24 @@ export default function Products({
             {currentProducts.map((product) => (
               <TableRow key={product.id} className="h-16">
                 <TableCell>
-                  <img
-                    src={product.imageSrc}
-                    alt={product.name}
-                    className="w-12 h-12 object-cover rounded-lg border"
-                  />
+                  {product.imageSrc ? (
+                    <img
+                      src={product.imageSrc}
+                      alt={product.name}
+                      className="w-12 h-12 object-cover rounded-lg border"
+                      onError={(e) => {
+                        e.currentTarget.src = "/placeholder-image.jpg"; // Add a placeholder image
+                        console.error(
+                          "Failed to load image:",
+                          product.imageSrc
+                        );
+                      }}
+                    />
+                  ) : (
+                    <div className="w-12 h-12 bg-gray-200 rounded-lg border flex items-center justify-center">
+                      <span className="text-gray-400">No image</span>
+                    </div>
+                  )}
                 </TableCell>
                 <TableCell className="font-medium">{product.name}</TableCell>
                 <TableCell>{product.category.name}</TableCell>
@@ -442,7 +467,7 @@ export default function Products({
                         setFeatures(
                           product.features?.map((f) => ({
                             name: f.name,
-                            image: f.image,
+                            image: null,
                           })) || []
                         );
                       }
@@ -475,12 +500,12 @@ export default function Products({
                             />
                           </div>
                           <div className="space-y-2">
-                            <Label htmlFor="edit-imageSrc">Image URL</Label>
+                            <Label htmlFor="edit-image">Product Image</Label>
                             <Input
-                              required
-                              id="edit-imageSrc"
-                              name="imageSrc"
-                              defaultValue={product.imageSrc}
+                              id="edit-image"
+                              name="image"
+                              type="file"
+                              accept="image/*"
                             />
                           </div>
                           <div className="space-y-2">
@@ -596,15 +621,14 @@ export default function Products({
                                   placeholder="Feature name"
                                 />
                                 <Input
-                                  value={feature.image}
-                                  onChange={(e) =>
-                                    handleFeatureChange(
-                                      index,
-                                      "image",
-                                      e.target.value
-                                    )
-                                  }
-                                  placeholder="Feature image URL"
+                                  type="file"
+                                  accept="image/*"
+                                  onChange={(e) => {
+                                    const file = e.target.files?.[0];
+                                    if (file) {
+                                      handleFeatureChange(index, "image", file);
+                                    }
+                                  }}
                                 />
                                 <Button
                                   type="button"

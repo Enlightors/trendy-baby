@@ -4,6 +4,7 @@ import { getServerSession } from "next-auth";
 import { prisma } from "@/lib/prisma";
 import { authOptions } from "@/auth";
 import { revalidatePath } from "next/cache";
+import Upload from "@/lib/upload";
 
 export async function createProduct(formData: FormData) {
   const session = await getServerSession(authOptions);
@@ -13,12 +14,19 @@ export async function createProduct(formData: FormData) {
 
   const name = formData.get("name") as string;
   const description = formData.get("description") as string;
-  const imageSrc = formData.get("imageSrc") as string;
   const featured = formData.get("featured") === "true";
   const category_id = parseInt(formData.get("category_id") as string);
   const brandId = formData.get("brandId")
     ? parseInt(formData.get("brandId") as string)
     : null;
+
+  // Handle image upload
+  const image = formData.get("image") as File;
+  let imageSrc = "";
+  if (image) {
+    // @ts-expect-error - Multer is not compatible with Next.js
+    imageSrc = await Upload("storage", image, image.name);
+  }
 
   const colors = formData.getAll("colors[]").map((color) => color.toString());
 
@@ -29,11 +37,12 @@ export async function createProduct(formData: FormData) {
     .getAll("feature_images[]")
     .map((image) => image.toString());
 
+  // Create product with the uploaded image URL
   await prisma.product.create({
     data: {
       name,
       description,
-      imageSrc,
+      imageSrc, // Use the uploaded image URL
       featured,
       category_id,
       brandId,
@@ -58,12 +67,19 @@ export async function updateProduct(productId: number, formData: FormData) {
 
   const name = formData.get("name") as string;
   const description = formData.get("description") as string;
-  const imageSrc = formData.get("imageSrc") as string;
   const featured = formData.get("featured") === "true";
   const category_id = parseInt(formData.get("category_id") as string);
   const brandId = formData.get("brandId")
     ? parseInt(formData.get("brandId") as string)
     : null;
+
+  // Handle image upload if a new image is provided
+  const image = formData.get("image") as File;
+  let imageSrc = undefined; // undefined means no image update
+  if (image && image.size > 0) {
+    // @ts-expect-error - Multer is not compatible with Next.js
+    imageSrc = await Upload("storage", image, image.name);
+  }
 
   const colors = formData.getAll("colors[]").map((color) => color.toString());
 
@@ -81,6 +97,7 @@ export async function updateProduct(productId: number, formData: FormData) {
     },
   });
 
+  // Update product with new data
   await prisma.product.update({
     where: {
       id: productId,
@@ -88,7 +105,7 @@ export async function updateProduct(productId: number, formData: FormData) {
     data: {
       name,
       description,
-      imageSrc,
+      ...(imageSrc ? { imageSrc } : {}), // Only update image if a new one was uploaded
       featured,
       category_id,
       brandId,
@@ -101,7 +118,6 @@ export async function updateProduct(productId: number, formData: FormData) {
       },
     },
   });
-  Seeder();
 
   revalidatePath("/admin/products");
 }
