@@ -4,9 +4,5 @@ import Categories from "../Components/Categories/Categories";
 export default async function page() {
   const categories = await prisma.category.findMany();
 
-  return (
-    <div className="p-8 w-full">
-      <Categories Categories={categories} />
-    </div>
-  );
+  return <Categories Categories={categories} />;
 }

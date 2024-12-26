@@ -75,8 +75,8 @@ export default function Brands({ brands }: { brands: Brand[] }) {
   };
 
   return (
-    <div className="space-y-4 w-full">
-      <div className="flex justify-between items-center w-full">
+    <div className="space-y-2 p-4 w-full">
+      <div className="flex justify-between h-[60px] items-center w-full">
         <h1 className="text-2xl font-bold mb-6">Brands</h1>
         <Dialog open={isAddOpen} onOpenChange={setIsAddOpen}>
           <DialogTrigger asChild>

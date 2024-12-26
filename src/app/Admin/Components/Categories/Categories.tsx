@@ -77,8 +77,8 @@ export default function Categories({ Categories }: { Categories: Category[] }) {
   };
 
   return (
-    <div className="space-y-4 w-full">
-      <div className="flex justify-between items-center w-full">
+    <div className="space-y-2 w-full p-4">
+      <div className="flex justify-between h-[60px] items-center w-full">
         <h1 className="text-2xl font-bold mb-6">Categories</h1>
         <Dialog open={isAddOpen} onOpenChange={setIsAddOpen}>
           <DialogTrigger asChild>

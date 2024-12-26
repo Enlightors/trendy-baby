@@ -1,5 +1,6 @@
-import { Home, Package, LayoutGrid, Building2 } from "lucide-react";
+"use client";
 
+import { Home, Package, LayoutGrid, Building2, User } from "lucide-react";
 import {
   Sidebar,
   SidebarContent,
@@ -10,6 +11,8 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
+import { LogoutButton } from "@/components/logout-button";
+import { Session } from "next-auth";
 
 // Menu items.
 const items = [
@@ -35,7 +38,7 @@ const items = [
   },
 ];
 
-export function AppSidebar() {
+export function AppSidebar({ session }: { session: Session }) {
   return (
     <Sidebar>
       <SidebarContent>
@@ -53,6 +56,20 @@ export function AppSidebar() {
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               ))}
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
+
+        <SidebarGroup className="mt-auto">
+          <SidebarGroupContent>
+            <SidebarMenu>
+              <SidebarMenuItem>
+                <SidebarMenuButton>
+                  <User />
+                  <span>{session?.user?.name || "User"}</span>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+              <LogoutButton />
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
