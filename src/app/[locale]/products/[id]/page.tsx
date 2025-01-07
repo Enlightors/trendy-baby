@@ -33,7 +33,7 @@ export default async function Page({
                 alt={product.name}
                 width={500}
                 height={500}
-                className="w-full h-auto bg-white"
+                className="w-full h-auto"
               />
             </div>
             <div className="order-2 col-span-1 rounded-lg md:order-last md:col-span-2">
