@@ -98,10 +98,7 @@ interface ImageUploadState {
   progress: number;
 }
 
-async function uploadImage(
-  file: File,
-  onProgress?: (progress: number) => void
-): Promise<string> {
+async function uploadImage(file: File): Promise<string> {
   const formData = new FormData();
   formData.append("file", file);
 
@@ -139,7 +136,6 @@ export default function Products({
   >([]);
   const [additionalImages, setAdditionalImages] = useState<File[]>([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [imageToDelete, setImageToDelete] = useState<number | null>(null);
   const [mainImageUpload, setMainImageUpload] = useState<ImageUploadState>({
     isUploading: false,
     progress: 0,
@@ -166,7 +162,6 @@ export default function Products({
   };
 
   const handleRemoveAdditionalImage = (index: number) => {
-    setImageToDelete(null);
     setAdditionalImages((prev) => prev.filter((_, i) => i !== index));
     setAdditionalImageUploads((prev) => prev.filter((_, i) => i !== index));
   };
@@ -192,7 +187,6 @@ export default function Products({
       console.error("Error deleting product image:", error);
     } finally {
       setIsLoading(false);
-      setImageToDelete(null);
     }
   };
 
@@ -260,9 +254,7 @@ export default function Products({
       const imageFile = form.get("image") as File;
       if (imageFile && imageFile.size > 0) {
         setMainImageUpload({ isUploading: true, progress: 0 });
-        const imageUrl = await uploadImage(imageFile, (progress) => {
-          setMainImageUpload((prev) => ({ ...prev, progress }));
-        });
+        const imageUrl = await uploadImage(imageFile);
         form.delete("image");
         form.append("imageSrc", imageUrl);
         setMainImageUpload({ isUploading: false, progress: 100 });
@@ -277,13 +269,7 @@ export default function Products({
             return newUploads;
           });
 
-          const url = await uploadImage(file, (progress) => {
-            setAdditionalImageUploads((prev) => {
-              const newUploads = [...prev];
-              newUploads[index] = { isUploading: true, progress };
-              return newUploads;
-            });
-          });
+          const url = await uploadImage(file);
 
           setAdditionalImageUploads((prev) => {
             const newUploads = [...prev];
@@ -311,16 +297,7 @@ export default function Products({
             return newUploads;
           });
 
-          const featureImageUrl = await uploadImage(
-            feature.image,
-            (progress) => {
-              setFeatureImageUploads((prev) => {
-                const newUploads = [...prev];
-                newUploads[index] = { isUploading: true, progress };
-                return newUploads;
-              });
-            }
-          );
+          const featureImageUrl = await uploadImage(feature.image);
 
           setFeatureImageUploads((prev) => {
             const newUploads = [...prev];
@@ -382,9 +359,7 @@ export default function Products({
       const imageFile = form.get("image") as File;
       if (imageFile && imageFile.size > 0) {
         setMainImageUpload({ isUploading: true, progress: 0 });
-        const imageUrl = await uploadImage(imageFile, (progress) => {
-          setMainImageUpload((prev) => ({ ...prev, progress }));
-        });
+        const imageUrl = await uploadImage(imageFile);
         form.delete("image");
         form.append("imageSrc", imageUrl);
         setMainImageUpload({ isUploading: false, progress: 100 });
@@ -401,13 +376,7 @@ export default function Products({
             return newUploads;
           });
 
-          const url = await uploadImage(file, (progress) => {
-            setAdditionalImageUploads((prev) => {
-              const newUploads = [...prev];
-              newUploads[index] = { isUploading: true, progress };
-              return newUploads;
-            });
-          });
+          const url = await uploadImage(file);
 
           setAdditionalImageUploads((prev) => {
             const newUploads = [...prev];
@@ -443,16 +412,7 @@ export default function Products({
             return newUploads;
           });
 
-          const featureImageUrl = await uploadImage(
-            feature.image,
-            (progress) => {
-              setFeatureImageUploads((prev) => {
-                const newUploads = [...prev];
-                newUploads[index] = { isUploading: true, progress };
-                return newUploads;
-              });
-            }
-          );
+          const featureImageUrl = await uploadImage(feature.image);
 
           setFeatureImageUploads((prev) => {
             const newUploads = [...prev];

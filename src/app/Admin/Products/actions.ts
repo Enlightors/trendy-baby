@@ -35,7 +35,7 @@ export async function createProduct(formData: FormData) {
     .map((image) => image.toString());
 
   // Create product with the uploaded image URL
-  const product = await prisma.product.create({
+  await prisma.product.create({
     data: {
       name,
       description,
