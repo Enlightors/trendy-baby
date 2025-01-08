@@ -21,17 +21,25 @@ model User {
 }
 
 model Product {
-  id          Int       @id @default(autoincrement())
-  imageSrc    String
-  name        String
-  featured    Boolean
-  category_id Int
-  description String
-  brandId     Int?
-  colors      String[]
-  features    Feature[]
-  category    Category  @relation(fields: [category_id], references: [id], onDelete: NoAction)
-  brand       Brand?    @relation(fields: [brandId], references: [id], onDelete: NoAction)
+  id            Int             @id @default(autoincrement())
+  imageSrc      String
+  name          String
+  featured      Boolean
+  category_id   Int
+  description   String
+  brandId       Int?
+  colors        String[]
+  features      Feature[]
+  category      Category        @relation(fields: [category_id], references: [id], onDelete: NoAction)
+  brand         Brand?          @relation(fields: [brandId], references: [id], onDelete: NoAction)
+  ProductImages ProductImages[]
+}
+
+model ProductImages {
+  id        Int     @id @default(autoincrement())
+  imageSrc  String
+  product   Product @relation(fields: [productId], references: [id], onDelete: NoAction)
+  productId Int
 }
 
 model Feature {

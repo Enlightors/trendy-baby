@@ -7,6 +7,7 @@ export default async function page() {
       category: true,
       brand: true,
       features: true,
+      ProductImages: true,
     },
     orderBy: {
       id: "asc",

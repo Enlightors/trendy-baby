@@ -41,8 +41,20 @@ import {
   createProduct,
   deleteProduct,
   updateProduct,
+  deleteProductImage,
 } from "@/src/app/Admin/Products/actions";
 import React, { useState } from "react";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 
 interface Feature {
   id: number;
@@ -68,6 +80,7 @@ interface Product {
     id: number;
     name: string;
   } | null;
+  ProductImages: { id: number; imageSrc: string }[];
 }
 
 interface Brand {
@@ -80,7 +93,15 @@ interface Category {
   name: string;
 }
 
-async function uploadImage(file: File): Promise<string> {
+interface ImageUploadState {
+  isUploading: boolean;
+  progress: number;
+}
+
+async function uploadImage(
+  file: File,
+  onProgress?: (progress: number) => void
+): Promise<string> {
   const formData = new FormData();
   formData.append("file", file);
 
@@ -116,9 +137,64 @@ export default function Products({
   const [features, setFeatures] = useState<
     { name: string; image: File | null }[]
   >([]);
+  const [additionalImages, setAdditionalImages] = useState<File[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [imageToDelete, setImageToDelete] = useState<number | null>(null);
+  const [mainImageUpload, setMainImageUpload] = useState<ImageUploadState>({
+    isUploading: false,
+    progress: 0,
+  });
+  const [additionalImageUploads, setAdditionalImageUploads] = useState<
+    ImageUploadState[]
+  >([]);
+  const [featureImageUploads, setFeatureImageUploads] = useState<
+    ImageUploadState[]
+  >([]);
 
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 11;
+
+  const handleAddAdditionalImage = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files;
+    if (files && files.length > 0) {
+      setAdditionalImages((prev) => [...prev, ...Array.from(files)]);
+      setAdditionalImageUploads((prev) => [
+        ...prev,
+        ...Array(files.length).fill({ isUploading: false, progress: 0 }),
+      ]);
+    }
+  };
+
+  const handleRemoveAdditionalImage = (index: number) => {
+    setImageToDelete(null);
+    setAdditionalImages((prev) => prev.filter((_, i) => i !== index));
+    setAdditionalImageUploads((prev) => prev.filter((_, i) => i !== index));
+  };
+
+  const handleDeleteProductImage = async (
+    productId: number,
+    imageId: number
+  ) => {
+    try {
+      setIsLoading(true);
+      await deleteProductImage(productId, imageId);
+
+      // Update the selected product's images
+      if (selectedProduct) {
+        setSelectedProduct({
+          ...selectedProduct,
+          ProductImages: selectedProduct.ProductImages.filter(
+            (img) => img.id !== imageId
+          ),
+        });
+      }
+    } catch (error) {
+      console.error("Error deleting product image:", error);
+    } finally {
+      setIsLoading(false);
+      setImageToDelete(null);
+    }
+  };
 
   const handleAddColor = () => {
     if (newColor.trim()) {
@@ -133,10 +209,17 @@ export default function Products({
 
   const handleAddFeature = () => {
     setFeatures([...features, { name: "", image: null }]);
+    setFeatureImageUploads((prev) => [
+      ...prev,
+      { isUploading: false, progress: 0 },
+    ]);
   };
 
   const handleRemoveFeature = (indexToRemove: number) => {
     setFeatures(features.filter((_, index) => index !== indexToRemove));
+    setFeatureImageUploads((prev) =>
+      prev.filter((_, index) => index !== indexToRemove)
+    );
   };
 
   const handleFeatureChange = (
@@ -155,11 +238,14 @@ export default function Products({
 
   const handleDelete = async (id: number) => {
     try {
+      setIsLoading(true);
       await deleteProduct(id);
       setIsDeleteOpen(false);
       setProductToDelete(null);
     } catch (error) {
       console.error("Error deleting product:", error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -168,18 +254,80 @@ export default function Products({
     const form = new FormData(e.currentTarget);
 
     try {
+      setIsLoading(true);
+
       // Handle main product image upload
       const imageFile = form.get("image") as File;
       if (imageFile && imageFile.size > 0) {
-        const imageUrl = await uploadImage(imageFile);
-        form.delete("image"); // Remove the file
-        form.append("imageSrc", imageUrl); // Add the URL instead
+        setMainImageUpload({ isUploading: true, progress: 0 });
+        const imageUrl = await uploadImage(imageFile, (progress) => {
+          setMainImageUpload((prev) => ({ ...prev, progress }));
+        });
+        form.delete("image");
+        form.append("imageSrc", imageUrl);
+        setMainImageUpload({ isUploading: false, progress: 100 });
       }
 
+      // Handle additional images upload
+      const additionalImagePromises = additionalImages.map(
+        async (file, index) => {
+          setAdditionalImageUploads((prev) => {
+            const newUploads = [...prev];
+            newUploads[index] = { isUploading: true, progress: 0 };
+            return newUploads;
+          });
+
+          const url = await uploadImage(file, (progress) => {
+            setAdditionalImageUploads((prev) => {
+              const newUploads = [...prev];
+              newUploads[index] = { isUploading: true, progress };
+              return newUploads;
+            });
+          });
+
+          setAdditionalImageUploads((prev) => {
+            const newUploads = [...prev];
+            newUploads[index] = { isUploading: false, progress: 100 };
+            return newUploads;
+          });
+
+          return url;
+        }
+      );
+
+      const uploadedAdditionalImages = await Promise.all(
+        additionalImagePromises
+      );
+      uploadedAdditionalImages.forEach((url) => {
+        form.append("additional_images[]", url);
+      });
+
       // Handle feature image uploads
-      const featurePromises = features.map(async (feature) => {
+      const featurePromises = features.map(async (feature, index) => {
         if (feature.image) {
-          const featureImageUrl = await uploadImage(feature.image);
+          setFeatureImageUploads((prev) => {
+            const newUploads = [...prev];
+            newUploads[index] = { isUploading: true, progress: 0 };
+            return newUploads;
+          });
+
+          const featureImageUrl = await uploadImage(
+            feature.image,
+            (progress) => {
+              setFeatureImageUploads((prev) => {
+                const newUploads = [...prev];
+                newUploads[index] = { isUploading: true, progress };
+                return newUploads;
+              });
+            }
+          );
+
+          setFeatureImageUploads((prev) => {
+            const newUploads = [...prev];
+            newUploads[index] = { isUploading: false, progress: 100 };
+            return newUploads;
+          });
+
           return {
             name: feature.name,
             image: featureImageUrl,
@@ -209,8 +357,14 @@ export default function Products({
       setIsAddOpen(false);
       setColors([]);
       setFeatures([]);
+      setAdditionalImages([]);
+      setMainImageUpload({ isUploading: false, progress: 0 });
+      setAdditionalImageUploads([]);
+      setFeatureImageUploads([]);
     } catch (error) {
       console.error("Error creating product:", error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -222,18 +376,82 @@ export default function Products({
     const form = new FormData(e.currentTarget);
 
     try {
+      setIsLoading(true);
+
       // Handle main product image upload
       const imageFile = form.get("image") as File;
       if (imageFile && imageFile.size > 0) {
-        const imageUrl = await uploadImage(imageFile);
+        setMainImageUpload({ isUploading: true, progress: 0 });
+        const imageUrl = await uploadImage(imageFile, (progress) => {
+          setMainImageUpload((prev) => ({ ...prev, progress }));
+        });
         form.delete("image");
         form.append("imageSrc", imageUrl);
+        setMainImageUpload({ isUploading: false, progress: 100 });
+      } else {
+        form.delete("imageSrc"); // Ensure no update if no new image
       }
 
-      // Handle feature image uploads
-      const featurePromises = features.map(async (feature) => {
+      // Handle additional images upload with progress
+      const additionalImagePromises = additionalImages.map(
+        async (file, index) => {
+          setAdditionalImageUploads((prev) => {
+            const newUploads = [...prev];
+            newUploads[index] = { isUploading: true, progress: 0 };
+            return newUploads;
+          });
+
+          const url = await uploadImage(file, (progress) => {
+            setAdditionalImageUploads((prev) => {
+              const newUploads = [...prev];
+              newUploads[index] = { isUploading: true, progress };
+              return newUploads;
+            });
+          });
+
+          setAdditionalImageUploads((prev) => {
+            const newUploads = [...prev];
+            newUploads[index] = { isUploading: false, progress: 100 };
+            return newUploads;
+          });
+
+          return url;
+        }
+      );
+
+      const uploadedAdditionalImages = await Promise.all(
+        additionalImagePromises
+      );
+      uploadedAdditionalImages.forEach((url) => {
+        form.append("additional_images[]", url);
+      });
+
+      // Handle feature image uploads with progress
+      const featurePromises = features.map(async (feature, index) => {
         if (feature.image) {
-          const featureImageUrl = await uploadImage(feature.image);
+          setFeatureImageUploads((prev) => {
+            const newUploads = [...prev];
+            newUploads[index] = { isUploading: true, progress: 0 };
+            return newUploads;
+          });
+
+          const featureImageUrl = await uploadImage(
+            feature.image,
+            (progress) => {
+              setFeatureImageUploads((prev) => {
+                const newUploads = [...prev];
+                newUploads[index] = { isUploading: true, progress };
+                return newUploads;
+              });
+            }
+          );
+
+          setFeatureImageUploads((prev) => {
+            const newUploads = [...prev];
+            newUploads[index] = { isUploading: false, progress: 100 };
+            return newUploads;
+          });
+
           return {
             name: feature.name,
             image: featureImageUrl,
@@ -265,8 +483,14 @@ export default function Products({
       setSelectedProduct(null);
       setColors([]);
       setFeatures([]);
+      setAdditionalImages([]);
+      setMainImageUpload({ isUploading: false, progress: 0 });
+      setAdditionalImageUploads([]);
+      setFeatureImageUploads([]);
     } catch (error) {
       console.error("Error updating product:", error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -312,6 +536,14 @@ export default function Products({
                     type="file"
                     accept="image/*"
                   />
+                  {mainImageUpload.isUploading && (
+                    <div className="w-full bg-gray-200 rounded-full h-2.5">
+                      <div
+                        className="bg-blue-600 h-2.5 rounded-full"
+                        style={{ width: `${mainImageUpload.progress}%` }}
+                      ></div>
+                    </div>
+                  )}
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="category_id">Category *</Label>
@@ -347,6 +579,69 @@ export default function Products({
                   </Select>
                 </div>
               </div>
+
+              <div className="space-y-2">
+                <Label>Additional Images</Label>
+                <div className="flex flex-wrap gap-4">
+                  {additionalImages.map((file, index) => (
+                    <div key={index} className="relative">
+                      <img
+                        src={URL.createObjectURL(file)}
+                        alt={`Additional ${index + 1}`}
+                        className="w-24 h-24 object-cover rounded"
+                      />
+                      {additionalImageUploads[index]?.isUploading && (
+                        <div className="absolute bottom-0 left-0 right-0 bg-gray-200 rounded-full h-2">
+                          <div
+                            className="bg-blue-600 h-2 rounded-full"
+                            style={{
+                              width: `${additionalImageUploads[index].progress}%`,
+                            }}
+                          ></div>
+                        </div>
+                      )}
+                      <AlertDialog>
+                        <AlertDialogTrigger asChild>
+                          <button
+                            type="button"
+                            className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-6 h-6"
+                          >
+                            ×
+                          </button>
+                        </AlertDialogTrigger>
+                        <AlertDialogContent>
+                          <AlertDialogHeader>
+                            <AlertDialogTitle>Delete Image</AlertDialogTitle>
+                            <AlertDialogDescription>
+                              Are you sure you want to delete this image? This
+                              action cannot be undone.
+                            </AlertDialogDescription>
+                          </AlertDialogHeader>
+                          <AlertDialogFooter>
+                            <AlertDialogCancel>Cancel</AlertDialogCancel>
+                            <AlertDialogAction
+                              onClick={() => handleRemoveAdditionalImage(index)}
+                            >
+                              Delete
+                            </AlertDialogAction>
+                          </AlertDialogFooter>
+                        </AlertDialogContent>
+                      </AlertDialog>
+                    </div>
+                  ))}
+                  <label className="w-24 h-24 border-2 border-dashed border-gray-300 rounded flex items-center justify-center cursor-pointer hover:border-gray-400">
+                    <span className="text-3xl text-gray-400">+</span>
+                    <input
+                      type="file"
+                      accept="image/*"
+                      multiple
+                      className="hidden"
+                      onChange={handleAddAdditionalImage}
+                    />
+                  </label>
+                </div>
+              </div>
+
               <div className="space-y-2">
                 <Label htmlFor="description">Description *</Label>
                 <Textarea
@@ -407,16 +702,28 @@ export default function Products({
                         }
                         placeholder="Feature name"
                       />
-                      <Input
-                        type="file"
-                        accept="image/*"
-                        onChange={(e) => {
-                          const file = e.target.files?.[0];
-                          if (file) {
-                            handleFeatureChange(index, "image", file);
-                          }
-                        }}
-                      />
+                      <div className="space-y-2">
+                        <Input
+                          type="file"
+                          accept="image/*"
+                          onChange={(e) => {
+                            const file = e.target.files?.[0];
+                            if (file) {
+                              handleFeatureChange(index, "image", file);
+                            }
+                          }}
+                        />
+                        {featureImageUploads[index]?.isUploading && (
+                          <div className="w-full bg-gray-200 rounded-full h-2">
+                            <div
+                              className="bg-blue-600 h-2 rounded-full"
+                              style={{
+                                width: `${featureImageUploads[index].progress}%`,
+                              }}
+                            ></div>
+                          </div>
+                        )}
+                      </div>
                       <Button
                         type="button"
                         variant="destructive"
@@ -434,7 +741,9 @@ export default function Products({
                 <Label htmlFor="featured">Featured Product</Label>
               </div>
               <DialogFooter>
-                <Button type="submit">Save Product</Button>
+                <Button type="submit" disabled={isLoading}>
+                  {isLoading ? "Saving..." : "Save Product"}
+                </Button>
                 <Button
                   type="button"
                   variant="outline"
@@ -442,6 +751,7 @@ export default function Products({
                     setIsAddOpen(false);
                     setColors([]);
                     setFeatures([]);
+                    setAdditionalImages([]);
                   }}
                 >
                   Cancel
@@ -470,24 +780,15 @@ export default function Products({
             {currentProducts.map((product) => (
               <TableRow key={product.id} className="h-16">
                 <TableCell>
-                  {product.imageSrc ? (
-                    <img
-                      src={product.imageSrc}
-                      alt={product.name}
-                      className="w-12 h-12 object-cover rounded-lg border"
-                      onError={(e) => {
-                        e.currentTarget.src = "/placeholder-image.jpg"; // Add a placeholder image
-                        console.error(
-                          "Failed to load image:",
-                          product.imageSrc
-                        );
-                      }}
-                    />
-                  ) : (
-                    <div className="w-12 h-12 bg-gray-200 rounded-lg border flex items-center justify-center">
-                      <span className="text-gray-400">No image</span>
-                    </div>
-                  )}
+                  <div className="flex flex-wrap gap-1">
+                    {product.imageSrc && (
+                      <img
+                        src={product.imageSrc}
+                        alt={`Product Image`}
+                        className="w-12 h-12 object-cover rounded-lg border"
+                      />
+                    )}
+                  </div>
                 </TableCell>
                 <TableCell className="font-medium">{product.name}</TableCell>
                 <TableCell>{product.category.name}</TableCell>
@@ -536,6 +837,7 @@ export default function Products({
                         setSelectedProduct(null);
                         setColors([]);
                         setFeatures([]);
+                        setAdditionalImages([]);
                       } else {
                         setSelectedProduct(product);
                         setColors(product.colors);
@@ -583,6 +885,16 @@ export default function Products({
                               type="file"
                               accept="image/*"
                             />
+                            {mainImageUpload.isUploading && (
+                              <div className="w-full bg-gray-200 rounded-full h-2.5">
+                                <div
+                                  className="bg-blue-600 h-2.5 rounded-full"
+                                  style={{
+                                    width: `${mainImageUpload.progress}%`,
+                                  }}
+                                ></div>
+                              </div>
+                            )}
                           </div>
                           <div className="space-y-2">
                             <Label htmlFor="edit-category">Category *</Label>
@@ -628,6 +940,110 @@ export default function Products({
                             </Select>
                           </div>
                         </div>
+
+                        <div className="space-y-2">
+                          <Label>Additional Images</Label>
+                          <div className="flex flex-wrap gap-4">
+                            {product.ProductImages.map((image, index) => (
+                              <div key={index} className="relative">
+                                <img
+                                  src={image.imageSrc}
+                                  alt={`Additional ${index + 1}`}
+                                  className="w-24 h-24 object-cover rounded"
+                                />
+                                <AlertDialog>
+                                  <AlertDialogTrigger asChild>
+                                    <button
+                                      type="button"
+                                      className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-6 h-6"
+                                    >
+                                      ×
+                                    </button>
+                                  </AlertDialogTrigger>
+                                  <AlertDialogContent>
+                                    <AlertDialogHeader>
+                                      <AlertDialogTitle>
+                                        Delete Image
+                                      </AlertDialogTitle>
+                                      <AlertDialogDescription>
+                                        Are you sure you want to delete this
+                                        image? This action cannot be undone.
+                                      </AlertDialogDescription>
+                                    </AlertDialogHeader>
+                                    <AlertDialogFooter>
+                                      <AlertDialogCancel>
+                                        Cancel
+                                      </AlertDialogCancel>
+                                      <AlertDialogAction
+                                        onClick={() =>
+                                          handleDeleteProductImage(
+                                            product.id,
+                                            image.id
+                                          )
+                                        }
+                                      >
+                                        Delete
+                                      </AlertDialogAction>
+                                    </AlertDialogFooter>
+                                  </AlertDialogContent>
+                                </AlertDialog>
+                              </div>
+                            ))}
+                            {additionalImages.map((file, index) => (
+                              <div key={index} className="relative">
+                                <img
+                                  src={URL.createObjectURL(file)}
+                                  alt={`Additional ${index + 1}`}
+                                  className="w-24 h-24 object-cover rounded"
+                                />
+                                <AlertDialog>
+                                  <AlertDialogTrigger asChild>
+                                    <button
+                                      type="button"
+                                      className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-6 h-6"
+                                    >
+                                      ×
+                                    </button>
+                                  </AlertDialogTrigger>
+                                  <AlertDialogContent>
+                                    <AlertDialogHeader>
+                                      <AlertDialogTitle>
+                                        Delete Image
+                                      </AlertDialogTitle>
+                                      <AlertDialogDescription>
+                                        Are you sure you want to delete this
+                                        image? This action cannot be undone.
+                                      </AlertDialogDescription>
+                                    </AlertDialogHeader>
+                                    <AlertDialogFooter>
+                                      <AlertDialogCancel>
+                                        Cancel
+                                      </AlertDialogCancel>
+                                      <AlertDialogAction
+                                        onClick={() =>
+                                          handleRemoveAdditionalImage(index)
+                                        }
+                                      >
+                                        Delete
+                                      </AlertDialogAction>
+                                    </AlertDialogFooter>
+                                  </AlertDialogContent>
+                                </AlertDialog>
+                              </div>
+                            ))}
+                            <label className="w-24 h-24 border-2 border-dashed border-gray-300 rounded flex items-center justify-center cursor-pointer hover:border-gray-400">
+                              <span className="text-3xl text-gray-400">+</span>
+                              <input
+                                type="file"
+                                accept="image/*"
+                                multiple
+                                className="hidden"
+                                onChange={handleAddAdditionalImage}
+                              />
+                            </label>
+                          </div>
+                        </div>
+
                         <div className="space-y-2">
                           <Label htmlFor="edit-description">
                             Description *
@@ -732,7 +1148,9 @@ export default function Products({
                           </Label>
                         </div>
                         <DialogFooter>
-                          <Button type="submit">Save Changes</Button>
+                          <Button type="submit" disabled={isLoading}>
+                            {isLoading ? "Saving..." : "Save Changes"}
+                          </Button>
                           <Button
                             type="button"
                             variant="outline"
@@ -740,6 +1158,7 @@ export default function Products({
                               setIsEditOpen(false);
                               setColors([]);
                               setFeatures([]);
+                              setAdditionalImages([]);
                             }}
                           >
                             Cancel

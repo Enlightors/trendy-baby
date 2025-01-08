@@ -21,6 +21,10 @@ export async function createProduct(formData: FormData) {
   // Handle image upload
   const imageSrc = formData.get("imageSrc") as string;
 
+  const additionalImages = formData
+    .getAll("additional_images[]")
+    .map((image) => image.toString());
+
   const colors = formData.getAll("colors[]").map((color) => color.toString());
 
   const featureNames = formData
@@ -31,11 +35,11 @@ export async function createProduct(formData: FormData) {
     .map((image) => image.toString());
 
   // Create product with the uploaded image URL
-  await prisma.product.create({
+  const product = await prisma.product.create({
     data: {
       name,
       description,
-      imageSrc, // Use the uploaded image URL
+      imageSrc, // Main product image
       featured,
       category_id,
       brandId,
@@ -44,6 +48,11 @@ export async function createProduct(formData: FormData) {
         create: featureNames.map((name, index) => ({
           name: name,
           image: featureImages[index],
+        })),
+      },
+      ProductImages: {
+        create: additionalImages.map((image) => ({
+          imageSrc: image,
         })),
       },
     },
@@ -68,7 +77,9 @@ export async function updateProduct(productId: number, formData: FormData) {
 
   const imageSrc = formData.get("imageSrc") as string;
   const colors = formData.getAll("colors[]").map((color) => color.toString());
-
+  const additionalImages = formData
+    .getAll("additional_images[]")
+    .map((image) => image.toString());
   const featureNames = formData
     .getAll("feature_names[]")
     .map((name) => name.toString());
@@ -76,8 +87,14 @@ export async function updateProduct(productId: number, formData: FormData) {
     .getAll("feature_images[]")
     .map((image) => image.toString());
 
-  // First delete existing features
+  // First delete existing features and additional images
   await prisma.feature.deleteMany({
+    where: {
+      productId: productId,
+    },
+  });
+
+  await prisma.productImages.deleteMany({
     where: {
       productId: productId,
     },
@@ -91,7 +108,7 @@ export async function updateProduct(productId: number, formData: FormData) {
     data: {
       name,
       description,
-      ...(imageSrc ? { imageSrc } : {}), // Only update image if a new one was uploaded
+      ...(imageSrc ? { imageSrc } : {}), // Only update main image if a new one was uploaded
       featured,
       category_id,
       brandId,
@@ -100,6 +117,11 @@ export async function updateProduct(productId: number, formData: FormData) {
         create: featureNames.map((name, index) => ({
           name: name,
           image: featureImages[index],
+        })),
+      },
+      ProductImages: {
+        create: additionalImages.map((image) => ({
+          imageSrc: image,
         })),
       },
     },
@@ -114,11 +136,28 @@ export async function deleteProduct(productId: number) {
     throw new Error("You must be logged in");
   }
 
+  await prisma.productImages.deleteMany({
+    where: {
+      productId: productId,
+    },
+  });
+
   await prisma.product.delete({
     where: {
       id: productId,
     },
   });
 
+  revalidatePath("/admin/products");
+}
+export async function deleteProductImage(productId: number, imageId: number) {
+  const session = await getServerSession(authOptions);
+  if (!session) {
+    throw new Error("You must be logged in");
+  }
+
+  await prisma.productImages.delete({
+    where: { id: imageId, productId: productId },
+  });
   revalidatePath("/admin/products");
 }
