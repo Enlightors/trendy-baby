@@ -422,6 +422,14 @@ export default function Products({
       const uploadedAdditionalImages = await Promise.all(
         additionalImagePromises
       );
+
+      // Keep existing images and add new ones
+      if (selectedProduct) {
+        selectedProduct.ProductImages.forEach((image) => {
+          form.append("additional_images[]", image.imageSrc);
+        });
+      }
+
       uploadedAdditionalImages.forEach((url) => {
         form.append("additional_images[]", url);
       });

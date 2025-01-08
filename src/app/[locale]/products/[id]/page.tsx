@@ -3,6 +3,7 @@ import { Feature } from "@/types";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import ImageGallery from "./ImageGallery";
 
 export default async function Page({
   params: { id },
@@ -16,6 +17,7 @@ export default async function Page({
       category: true,
       brand: true,
       features: true,
+      ProductImages: true,
     },
   });
   if (!product) {
@@ -35,6 +37,7 @@ export default async function Page({
                 height={500}
                 className="w-full h-auto"
               />
+              <ImageGallery images={product.ProductImages} />
             </div>
             <div className="order-2 col-span-1 rounded-lg md:order-last md:col-span-2">
               <h1 className="mb-4 mt-0 !line-clamp-2 block text-2xl font-bold text-gray-900 sm:text-3xl md:!hidden lg:my-0 lg:mt-8">
