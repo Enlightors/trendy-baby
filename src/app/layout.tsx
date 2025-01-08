@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 import "./globals.css";
-
+import { Toaster } from "@/components/ui/toaster";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -32,7 +32,10 @@ export default function RootLayout({ children }: Props) {
       />
       <meta name="apple-mobile-web-app-title" content="TrendingBaby" />
       <link rel="manifest" href="/site.webmanifest" />
-      <body>{children}</body>
+      <body>
+        <Toaster />
+        {children}
+      </body>
     </html>
   );
 }

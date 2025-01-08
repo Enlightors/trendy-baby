@@ -1,6 +1,7 @@
 "use client";
 
 import { Home, Package, LayoutGrid, Building2, User } from "lucide-react";
+import Link from "next/link";
 import {
   Sidebar,
   SidebarContent,
@@ -64,10 +65,12 @@ export function AppSidebar({ session }: { session: Session }) {
           <SidebarGroupContent>
             <SidebarMenu>
               <SidebarMenuItem>
-                <SidebarMenuButton>
-                  <User />
-                  <span>{session?.user?.name || "User"}</span>
-                </SidebarMenuButton>
+                <Link href="/Admin/Account">
+                  <SidebarMenuButton>
+                    <User />
+                    <span>{session?.user?.name || "User"}</span>
+                  </SidebarMenuButton>
+                </Link>
               </SidebarMenuItem>
               <LogoutButton />
             </SidebarMenu>
